@@ -1,0 +1,48 @@
+#nav{
+    width: 80%;
+  display: flex;
+  margin: auto;
+  justify-content: space-between;
+  text-align: center;
+background-color: rgb(7, 216, 244);
+}
+#need{
+    text-align: center;
+    color: aliceblue;
+    font-size: 30px;
+  
+
+}
+
+#welcome{
+    width: 70%;
+    text-align: center;
+    color: aliceblue;
+    margin: auto;
+    font-size: 22px;
+}
+#Schedule{
+    text-align: center;
+   background-color: black;
+    font-size: 30px;
+    background-color: rgb(7, 216, 244);
+  
+    padding: 20px;
+    text-align: center;
+    margin: auto;
+    width: 30%;
+}
+a {
+    text-decoration: none;
+}
+
+body {
+    background-image: url("./AdminPage/image/judge-gavel-with-justice-lawyers-ADTMB9G-scaled.webp");
+    background-size: cover; /* Adjust as per your preference */
+    background-repeat: no-repeat; /* Adjust as per your preference */
+}
+
+/* .body{
+    background-image: url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.totallylegal.com%2Farticle%2Fcriminal-lawyer-job-description&psig=AOvVaw0e3KVW_V_rYqTGXJaCPX9Q&ust=1686936092481000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCMC7oubkxf8CFQAAAAAdAAAAABAE");
+} */
+
