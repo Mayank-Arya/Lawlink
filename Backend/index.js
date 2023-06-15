@@ -2,6 +2,7 @@ const express=require('express');
 const cors=require("cors")
 const app=express();
 app.use(express.json());
+const adminRouter = require('./Routes/admin.route')
 app.use(cors())
 const http=require('http');
 const  connection  = require('./db');
@@ -11,7 +12,12 @@ require("dotenv").config();
 const server=http.createServer(app);
 
 // ========================================Routes
+=======
+app.get('/',(req,res) => {
+    res.send("Welcome to the home route")
+})
 
+app.use('/admin',adminRouter)
 app.use("/user",userRoute)
 
 
