@@ -6,7 +6,8 @@ const userSchema=mongoose.Schema({
     Name:String,
     password:String,
     city:String,
-    role:String
+    role:String,
+    verify:Boolean
 })
 
 const UserModel=mongoose.model("user",userSchema);

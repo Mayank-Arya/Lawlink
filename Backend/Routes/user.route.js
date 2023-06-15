@@ -2,10 +2,12 @@ const express=require('express');
 const { UserModel } = require('../Models/user.model');
 const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken');
+const nodemailer=require('nodemailer');
+const otpGenerator = require('otp-generator')
 const userRoute=express.Router();
 
 userRoute.post("/register",async(req,res)=>{
-    const {Phone_No,email,password,Name}=req.body;
+    const {Phone_No,email,password,Name , city }=req.body;
     const user=await UserModel.find({Phone_No,email});
     //console.log(Phone_No)
     try {
@@ -16,9 +18,10 @@ userRoute.post("/register",async(req,res)=>{
                 if(err){
                     throw err
                 }
-                let userp=await new UserModel({Name,email,password:hash,Phone_No});
+                let userp=await new UserModel({Name,email,password:hash,Phone_No,city , role:"user" , verify:false});
                  userp.save();
-                res.status(200).send({msg:"user registered!"});
+                let OTP= otpGenerator.generate(6, { upperCaseAlphabets: true, specialChars: true });
+                res.status(200).send({msg:"user registered!",otp:OTP});
             })
         }
         else{
@@ -53,6 +56,31 @@ userRoute.post("/login",async(req,res)=>{
 })
 
 
+const transporter = nodemailer.createTransport({
+    service:'gmail',
+    host: 'smtp.gmail.email',
+    port: 587,
+    secure:false,
+    auth: {
+        user: 'yashkumar18gupta@gmail.com',
+        pass: 'ivjkzdcsufghclrb'
+    }
+});
+
+transporter
+     .sendMail({
+        to:"lawlink.legal.services@gmail.com",
+        from:"yashkumar18gupta@gmail.com",
+        subject:"Verify your Email for registraion on LawLink",
+        text:"hey it's from node.js, first mail",
+        html:`<button><a href="https://masaischool.com/">click me</a></button>`
+     })
+     .then(()=>{
+        console.log("mail sent succesfully")
+     })
+     .catch((err)=>{
+        console.log(err)
+     })
 
 
 
