@@ -12,7 +12,7 @@ userRoute.post("/register",async(req,res)=>{
         
         //console.log(user)
         if(user.length===0){
-            bcrypt.hash(password,5,async(err,hash)=>{
+            bczrypt.hash(password,5,async(err,hash)=>{
                 if(err){
                     throw err
                 }
