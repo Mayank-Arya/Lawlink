@@ -5,6 +5,11 @@
     font-family: "Inter Tight", "Helvetica Neue", -apple-system, "system-ui", "Segoe UI", Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
 }
+
+
+
+
+
 #logotop{
     display: block;
      height: 70px; 
@@ -14,30 +19,47 @@
 }
 #outter {
     width: 100%;
+    display: flex;
+    
 }
+#Heading{
+    margin-left: 500px;
+    /* padding: 2px; */
+    margin-top: 5px;
+}
+
 
 #parent {
     width: 100%;
     display: flex;
+   
 
 }
 
 #parentone {
 
-    width: 15%;
+    width: 19%;
     text-align: justify;
     padding-top: 40px;
+   
 }
 
 #parenttwo {
-    border: 1px solid rgb(63, 63, 63);
-    border-radius: 33px 0px;
-    width: 85%;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border: 1px solid rgb(37, 37, 37);
+    border-radius: 10px 15px;
+    width: 80%;
+    /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
+    /* box-shadow: 0px 9px 30px rgba(255, 5, 5, 0.3); */
+    box-shadow: 0 0 0 2px rgba(34, 32, 33, 0.196), 8px 8px 0 0 rgba(0, 0, 0, 0.168);
+    background-image: url('https://img.freepik.com/free-photo/still-life-with-scales-justice_23-2149776040.jpg?w=1060&t=st=1686818557~exp=1686819157~hmac=c3576517cc989964509d7b751af30073b9d8d891a1348854615b963415d73dbe');
+    background-repeat: no-repeat;
+    
+    background-attachment: fixed;
+    background-size: 100% 100%;
     /* background-color: white; */
-
-    background: rgb(70,183,161);
-background: linear-gradient(90deg, rgba(70,183,161,1) 2%, rgba(40,219,111,1) 24%, rgba(27,201,134,1) 56%, rgba(9,180,107,0.8100490196078431) 92%, rgba(32,211,103,1) 100%);
+    /* background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdAra2KL-8NN4OoTLUC8_O1f9B9RLZT90hZg&usqp=CAU'); */
+    /* background: rgb(70,183,161);
+background: linear-gradient(90deg, rgba(70,183,161,1) 2%, rgba(40,219,111,1) 24%, rgba(27,201,134,1) 56%, rgba(9,180,107,0.8100490196078431) 92%, rgba(32,211,103,1) 100%); */
 
 
 }
@@ -63,12 +85,12 @@ background: linear-gradient(90deg, rgba(70,183,161,1) 2%, rgba(40,219,111,1) 24%
 }
 
 #dash {
-    width: 100%;
+    width: 60%;
     margin: auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 4%;
-    margin-top: 20px;
+    margin-top: 10px;
 
 }
 
@@ -79,15 +101,22 @@ background: linear-gradient(90deg, rgba(70,183,161,1) 2%, rgba(40,219,111,1) 24%
 }
 
 #firstbox {
-    background-color: rgb(219, 153, 249);
+    /* background-color: rgb(219, 153, 249); */
+    background: rgb(156,133,143);
+background: linear-gradient(68deg, rgba(156,133,143,0.8800770308123249) 0%, rgba(148,187,233,1) 100%);
+opacity: 0.8;
     padding: 40px 15px;
     display: flex;
     justify-content: space-between;
     border-radius: 10px;
+    color: black;
 }
 
 #secondbox {
-    background-color: rgb(202, 240, 114);
+    /* background-color: rgb(202, 240, 114); */
+    opacity: 0.8;
+    background: rgb(156,133,143);
+background: linear-gradient(68deg, rgba(156,133,143,0.8800770308123249) 0%, rgba(148,187,233,1) 100%);
     padding: 40px 15px;
     display: flex;
     justify-content: space-between;
@@ -95,7 +124,10 @@ background: linear-gradient(90deg, rgba(70,183,161,1) 2%, rgba(40,219,111,1) 24%
 }
 
 #thirdbox {
-    background-color: rgb(236, 139, 171);
+    /* background-color: rgb(236, 139, 171); */
+    opacity: 0.8;
+    background: rgb(156,133,143);
+background: linear-gradient(68deg, rgba(156,133,143,0.8800770308123249) 0%, rgba(148,187,233,1) 100%);
     padding: 40px 15px;
     border-radius: 10px;
     display: flex;

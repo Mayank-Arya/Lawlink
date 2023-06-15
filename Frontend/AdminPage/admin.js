@@ -93,20 +93,20 @@ function render(data) {
 
                 <!-- No of product -->
                 <div id="firstbox">
-                    <h3 style="text-align: center; font-size: 25px; color: rgb(128, 130, 132);">Number of
-                        Products <br><span id="noofproduct">${data.length}</span> </h3>
+                    <h3 style="text-align: center; font-size: 25px; color: black;">Number of
+                    Lawyers <br><span id="noofproduct">${data.length}</span> </h3>
                     <img src="./image/icons8-open-box-50.png" style="width: 32%; display: block;" alt="">
                 </div>
                 <!-- variety -->
                 <div id="secondbox">
-                    <h3 style="text-align: center;font-size: 25px; color: rgb(128, 130, 132);">Total Stock
+                    <h3 style="text-align: center;font-size: 25px; color: black;">Available Lawyers
                         <br><span id="noofstock">${count2}</span>
                     </h3>
                     <img src="./image/icons8-successful-delivery-50.png" style="width: 32%;" alt="">
                 </div>
                 <!-- Best sellers  -->
                 <div id="thirdbox">
-                    <h3 style="text-align: center; font-size: 25px; color: rgb(128, 130, 132);">Best Sellers
+                    <h3 style="text-align: center; font-size: 25px; color: black;">Top Lawyers
                         <br><span id="noofbestseller">${count5}</span>
                     </h3><img src="./image/icons8-best-seller-80.png" style="width: 32%;" alt="">
                 </div>
@@ -122,28 +122,7 @@ function render(data) {
                 </div>`
 
 
-        let donutchart = document.getElementById("donutchart")
-        google.charts.load("current", { packages: ["corechart"] });
-        google.charts.setOnLoadCallback(drawChart);
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Task', 'Hours per Day'],
-                ['Colours', count1],
-                ['In Stock', count2],
-                ['Out of Stock', count3],
-                ['Products', count4],
-                ['Best sales', count5]
-            ]);
 
-            var options = {
-                title: 'All Coats & Jackets details',
-                pieHole: 0.4,
-            };
-
-            var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-            chart.draw(data, options);
-
-        }
     })
 
 }
