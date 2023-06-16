@@ -94,12 +94,12 @@ function fetchurlofproduct() {
 
 function renderproduct(data) {
     mainSection.innerHTML = `<div>
-        <h2 style="font-size: 25px; margin-bottom: 30px; color:white;">Product list</h2>
+        <h1 style="font-size: 25px; margin-bottom: 30px; color:white;">Lawyers</h1>
         <div id="crud" style="font-size:18px; margin-bottom: 10px;  display:flex; justify-content: space-around; background-color:white; padding: 10px;">
-                    <h3 id="addbtn">Add Product</h3>
-                    <h3 id="removebtn">Remove Product</h3>
-                    <h3 id="updateallitem">Update Data</h3>
-                    <h3 id="updatekey">Update key value</h3>
+                    <h3 id="addbtn">| Add Lawyer |</h3>
+                    <h3 id="removebtn">| Remove Lawyer |</h3>
+                    <h3 id="updateallitem">| Update Lawyer Data |</h3>
+                    
                 </div>
 
                 
