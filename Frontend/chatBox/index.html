@@ -15,12 +15,36 @@
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="../index.css">
     <style>
-    
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+      }
+      .main_chat_container {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        height: 0px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        /* z-index: -1; */
+        /* border: 1px solid rgb(55, 0, 255); */
+      }
+      .main_chat_container > div {
+        width: 50vw;
+        height: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        /* border: 1px solid rgb(4, 161, 64); */
+      }
+      .main_chat_container section{
+        position: relative;
+        /* border: 2px solid blue; */
+        z-index: 999;
       }
       .message_container {
         width: 100vw;
@@ -28,6 +52,16 @@
         display: flex;
         justify-content: center;
         align-items: center;
+      }
+      .chat_section {
+        /* border: 1px solid red; */
+        display: none;
+        width: 50%;
+      }
+      .chat_section > div > div > div {
+        /* border: 1px solid red; */
+        height: 100%;
+        width: 100%;
       }
 
       .message_container .box {
@@ -45,11 +79,11 @@
         align-items: flex-start;
         /* border: 1px solid lime; */
       }
-      .message_container .chat_box .lawyer{
+      .message_container .chat_box .lawyer {
         background-color: grey;
         color: #ffff;
       }
-      .message_container .chat_box .user{
+      .message_container .chat_box .user {
         background-color: rgba(0, 255, 0, 0.475);
         align-self: flex-end;
         margin: 3px 0;
@@ -59,51 +93,181 @@
         padding: 6px;
         border-radius: 10px 0 10px 10px;
       }
-      .message_container .chat_box p{
+      .message_container .chat_box p {
         padding: 4px;
         margin-bottom: 6px;
         max-width: 90%;
+      }
+      .allChatsContainer {
+        /* position: relative;
+        z-index: 999; */
+        /* border: 2px solid blue; */
+        width: 24vw;
+        max-height: 60vh;
+      }
+      .allChatsContainer #myLawyers {
+        background-color: #fff;
+        border-radius: 0 0 15px 15px;
+        border: 1px solid;
+        /* height: 50vh; */
+        height: 0px;
+        /* display: none; */
+        overflow-y: auto;
+        transition: 0.3s;
+      }
+      .item {
+        height: 50px;
+        display: flex;
+      }
+      .item .itemText {
+        line-height: 5px;
+        padding: 10px;
+      }
+      .lastMessage {
+        font-size: 12px;
+        color: #707070;
+      }
+      #lower-image, #photo{
+        /* z-index: 999; */
       }
     </style>
   </head>
   <body>
 
-    <section style="background-color: #eee">
-      <div class="container py-5">
-        <div class="row d-flex justify-content-center">
-          <div class="col-md-8 col-lg-6 col-xl-4">
-            <div class="card" id="chat1" style="border-radius: 15px">
-              <div
-                class="card-header d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0"
-                style="
-                  border-top-left-radius: 15px;
-                  border-top-right-radius: 15px;
-                "
-              >
-                <i class="fas fa-angle-left"></i>
-                <p class="mb-0 fw-bold">Live chat</p>
-                <i class="fas fa-times"></i>
-              </div>
-              <div class="card-body">
-                <div id="chat_box" style="max-height: 300px; overflow-y: auto; padding-right: 10px;">
-                  
-                </div>
+    <!-- navigation starts -->
+    <div id="photo">
+      <nav id="nav">
+          <h3>HOME</h3>
+          <h3>OUR FIRM</h3>
+          <h3>PRACTICE AREAS</h3>
+          <h3>WHAT OUR CLIENT SAY</h3>
+          <h3>PAY BILL</h3>
+          <h3>FAQ</h3>
+          <h3>LOCATIONS</h3>
+          <h3>CONTACT</h3>
+          <h3>LOGIN</h3>
+          <h3>REGISTER</h3>
+      </nav>
+      
+  </div>
+  <div id="lower-image">
+      <div id="need">
+          <h1>WHEN YOU NEED MORE</h1>
+      </div>
+      <div id="welcome">Welcome to Lawlink, the premier platform for finding the right legal expert for your specific needs.Once you've found your ideal legal expert, 
+          our intuitive appointment scheduling system allows you to book consultations directly through our platform.</div>
+      <div id="Schedule">
+          <a href="">Schedule Your Free Consultation</a>
+      </div>
 
-                <div class="form-outline">
-                  <textarea
-                    class="form-control"
-                    id="message"
-                    rows="4"
-                    placeholder="Type your message"
-                  ></textarea>
-                  <i class="fa fa-duotone fa-paper-plane" onclick="sendMessage()"></i>
+  </div>
+    <!-- navigation ends -->
+<p>
+  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Mollitia molestiae eum rerum id qui incidunt natus veniam, placeat sit deleniti quis quisquam numquam, excepturi nesciunt odio accusantium enim fugiat. Adipisci quas ipsam temporibus architecto ducimus, aliquam perferendis totam nulla repellat. Aliquam id architecto, obcaecati, quidem deserunt recusandae dolorem nemo quaerat distinctio quae repellendus quibusdam ipsam doloribus libero perferendis sint possimus optio et a harum soluta, mollitia tenetur ab voluptate. Sunt vero dolore alias laborum sequi voluptatem, quasi quos, asperiores eveniet iste, esse omnis repellendus quidem inventore atque nobis tempore illo impedit! Placeat nesciunt blanditiis, laborum, voluptates sint ipsa reiciendis illo dolore ex ad accusamus nemo. Ex excepturi adipisci similique deserunt sequi nam facere quae dicta eaque. Minus omnis velit deleniti molestias, vitae, dignissimos nisi unde perferendis voluptatibus incidunt tempora repellendus culpa, voluptas quod ipsa atque reprehenderit itaque nobis! Reiciendis fugit quam explicabo nam et laudantium nisi excepturi! Doloribus sapiente quod autem sed ea fugiat, facilis praesentium ullam placeat iusto nihil. Voluptatem nam totam amet asperiores eveniet. Molestias doloremque nobis consequatur odit eius obcaecati est illo, in saepe fugit debitis tempora, explicabo natus labore asperiores praesentium autem vel quis nihil tenetur placeat aut minus ipsum. Vero fuga, eaque eligendi at vel non laudantium ipsam ab dolor sunt magnam ipsum delectus? Necessitatibus perspiciatis at atque, perferendis magni assumenda animi explicabo, aut deserunt, cum quasi neque soluta minus modi corporis nobis molestias eaque. Repellendus nostrum atque nisi odit nesciunt repudiandae deserunt sunt minus quae, voluptate quam explicabo eum dicta blanditiis, laborum et veniam? Quae aut, id a magni eligendi, assumenda saepe blanditiis ex corporis iusto similique exercitationem esse nam impedit, ipsa reprehenderit placeat repellendus? Eaque ad, qui beatae praesentium, iusto modi maiores id veniam vero atque ullam magnam veritatis. Harum dicta unde impedit sed enim a illum tenetur minima autem ipsum ea voluptatum dolore, incidunt neque blanditiis ex adipisci hic mollitia culpa, alias aliquam asperiores fuga. Quibusdam, consectetur! Illum dolores eaque earum totam quaerat tempora minima labore quasi omnis itaque enim excepturi nesciunt, id repellendus molestias accusamus atque voluptas doloremque molestiae dicta culpa sint ab ipsum voluptate. Debitis libero officiis animi. Atque quos ipsum voluptatem consequatur eos, praesentium, ipsa exercitationem laborum in ex rem consequuntur, voluptas sit modi labore molestias nostrum quisquam. Nemo modi similique repellat perspiciatis velit aliquam dolore tenetur neque delectus, molestiae animi molestias ullam deserunt inventore, nobis, dolores dicta? Unde incidunt debitis eaque ipsum corporis praesentium quas repellat cum consectetur.
+</p>
+    <!-- chat box starts form herer -->
+    
+    <div class="main_chat_container">
+      <div>
+        <section style="" class="chat_section" id="chat_section">
+          <div class="container" style="height: 100%">
+            <div class="row d-flex justify-content-center">
+              <div class="col-md-8 col-lg-6 col-xl-4">
+                <div class="card" id="chat1" style="border-radius: 15px">
+                  <div
+                    class="card-header d-flex justify-content-between align-items-center bg-info text-white border-bottom-0"
+                    style="
+                      border-top-left-radius: 15px;
+                      border-top-right-radius: 15px;
+                    "
+                  >
+                    <!-- <i class="fas fa-angle-left"></i> -->
+                    <p class="mb-0 fw-bold">Live chat</p>
+                    <i class="fas fa-times" onclick="closeChatBox()" style="cursor: pointer;"></i>
+                  </div>
+                  <div class="card-body">
+                    <div
+                      id="chat_box"
+                      style="
+                        max-height: 300px;
+                        overflow-y: auto;
+                        padding-right: 10px;
+                      "
+                    ></div>
+
+                    <div class="form-outline">
+                      <form id="msg_form">
+                        <input
+                          class="form-control"
+                          id="message"
+                          placeholder="Type your message"
+                        />
+                        <!-- <textarea
+                              class="form-control"
+                              id="message"
+                              rows="2"
+                              placeholder="Type your message"
+                            ></textarea> -->
+                      </form>
+                      <!-- <i class="fa fa-duotone fa-paper-plane" onclick="sendMessage()"></i> -->
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </section>
+        <section class="allChatsContainer">
+          <div class="container">
+            <div
+              class="card-header d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0"
+              style="
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+              "
+            >
+              <!-- <i class="fas fa-angle-left"></i> -->
+              <p class="mb-0 fw-bold">Live chat</p>
+              <!-- <i class="fas fa-times"></i> -->
+              <i class="fa-brands fa-rocketchat fa-fade" onclick="toggleChats()"></i>
+            </div>
+            <div class="box" id="myLawyers">
+              <div
+                class="item myLawyers"
+                id="yeah"
+                data-lawyerId="michael.johnson@example.com"
+              >
+                <img
+                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
+                  alt=""
+                  style="width: 45px; height: 100%"
+                />
+                <div class="itemText">
+                  <p class="name">User pro</p>
+                  <p class="lastMessage">Last message .....</p>
+                </div>
+              </div>
+              <div
+                class="item myLawyers"
+                data-lawyerId="jane.smith@example.com"
+              >
+                <img
+                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
+                  alt=""
+                  style="width: 45px; height: 100%"
+                />
+                <div class="itemText">
+                  <p class="name">User pro</p>
+                  <p class="lastMessage">Last message .....</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
-    </section>
+    </div>
+ 
+<!-- chat box ends here -->
 
 
     <script
@@ -114,42 +278,64 @@
 
     <script>
       const socket = io("http://localhost:8080", { transports: ["websocket"] });
-      const display_box = document.getElementById("chat_box")
+      const userChatEmail = "user@example.com";
+      let myLawyerId = "";
+      const display_box = document.getElementById("chat_box");
+      const myLawyers = document.querySelectorAll(".myLawyers");
+      const chatSection = document.getElementById("chat_section");
+      myLawyers.forEach((ele) => {
+        ele.addEventListener("click", () => {
+          myLawyerId = ele.getAttribute("data-lawyerId");
+          chatSection.style.display = "block";
+          updateChatBox(myLawyerId);
+        });
+      });
+
       // Connect to the server
       socket.on("connect", () => {
         console.log("Connected to server");
-        socket.emit("registerUser", "user7@example.com");
+        socket.emit("registerUser", userChatEmail);
       });
 
       // Send a message to a lawyer
+      document
+        .getElementById("msg_form")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          sendMessage();
+        });
       function sendMessage() {
         // const lawyerId = document.getElementById('lawyerId').value;
         const message = document.getElementById("message").value;
-        
+
         const chatData = `
         <div class="p-2 me-1 border" style="border-radius: 15px; background-color: #fbfbfb;">
                     <p class="small mb-0">${message}</p>
                   </div>
                   <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
                     alt="avatar 1" style="width: 45px; height: 100%;">
-        `
+        `;
 
         const received_msg = document.createElement("div");
-        received_msg.setAttribute("class", "d-flex flex-row justify-content-end mb-4");
-        received_msg.innerHTML = chatData
+        received_msg.setAttribute(
+          "class",
+          "d-flex flex-row justify-content-end mb-4"
+        );
+        received_msg.innerHTML = chatData;
         display_box.append(received_msg);
 
         display_box.scrollTop = display_box.scrollHeight;
 
         const data = {
-          lawyerId: "lawyer5",
-          email: "user7@example.com",
+          lawyerId: myLawyerId,
+          email: userChatEmail,
           chatting: {
             textMsg: message,
             sendBy: "user",
           },
         };
         socket.emit("sendToLawyer", data);
+        document.getElementById("message").value = "";
       }
 
       // Receive a message from a lawyer
@@ -160,11 +346,14 @@
                   <div class="p-2 ms-1" style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
                     <p class="small mb-0">${message}</p>
                   </div>
-        `
+        `;
 
         const received_msg = document.createElement("div");
-        received_msg.setAttribute("class", "d-flex flex-row justify-content-start mb-4");
-        received_msg.innerHTML = chatData
+        received_msg.setAttribute(
+          "class",
+          "d-flex flex-row justify-content-start mb-4"
+        );
+        received_msg.innerHTML = chatData;
         display_box.append(received_msg);
 
         display_box.scrollTop = display_box.scrollHeight;
@@ -172,11 +361,11 @@
       });
 
       // update chat box
-      updateChatBox();
+      //   updateChatBox();
 
-      function updateChatBox() {
+      function updateChatBox(myLawyerId) {
         fetch(
-          "http://localhost:8080/myChat?lawyerId=lawyer5&email=user7@example.com"
+          `http://localhost:8080/myChat?lawyerId=${myLawyerId}&email=${userChatEmail}`
         )
           .then((req) => req.json())
           .then((res) => appendChaBox(res));
@@ -187,7 +376,7 @@
             //         return `
             // <p class=${ele.sendBy}> ${ele.textMsg} </p>
             // `;
-            if (ele.sendBy == "user") {
+            if (ele.sendBy != "user") {
               return `
     <div class="d-flex flex-row justify-content-start mb-4">
                   <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
@@ -210,12 +399,21 @@
             }
           })
           .join("");
-          display_box.scrollTop = display_box.scrollHeight;
+        display_box.scrollTop = display_box.scrollHeight;
       }
 
-
-
-
+      function closeChatBox() {
+        chatSection.style.display = "none";
+      }
+      function toggleChats() {
+        const element = document.getElementById("myLawyers");
+        console.log(element.style.height);
+        if (element.style.height == "0px" || element.style.height==false) {
+          element.style.height = "50vh";
+        } else {
+          element.style.height = 0;
+        }
+      }
     </script>
   </body>
 </html>
