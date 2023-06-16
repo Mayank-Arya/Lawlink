@@ -5,24 +5,30 @@ const jwt=require('jsonwebtoken');
 const nodemailer=require('nodemailer');
 const otpGenerator = require('otp-generator')
 const userRoute=express.Router();
+const otpverify=require("../Middleware/otp.middleware");
+const { UserOTP } = require('../Models/otp.model');
 
 userRoute.post("/register",async(req,res)=>{
     const {Phone_No,email,password,Name , city }=req.body;
-    const user=await UserModel.find({Phone_No,email});
+    const user=await UserModel.find({email});
     //console.log(Phone_No)
     try {
         
         //console.log(user)
         if(user.length===0){
-            bczrypt.hash(password,5,async(err,hash)=>{
+            bcrypt.hash(password,5,async(err,hash)=>{
                 if(err){
                     throw err
                 }
                 let userp=await new UserModel({Name,email,password:hash,Phone_No,city , role:"user" , verify:false});
                  userp.save();
-                let OTP= otpGenerator.generate(6, { upperCaseAlphabets: true, specialChars: true });
-                res.status(200).send({msg:"user registered!",otp:OTP});
-            })
+            });
+            let OTP= otpGenerator.generate(6, { upperCaseAlphabets: true, specialChars: true }); //otp generation;
+                let otp=new UserOTP({Useremail:email,otp:OTP,createdAt:new Date(),expireAt:new Date()+86400000});
+                otp.save();                                                                          // saving the otp in backend
+                let tokenOTP=jwt.sign({'Useremail':email},'masai');                    // token genration to pass unique email for verification through otp
+                sendOTPforverification(email,OTP);                                                  //  sending email
+                res.status(200).send({msg:"Please verify your email !","token":tokenOTP});         // response 
         }
         else{
             res.status(400).send({msg:"user already exist please Login!"})
@@ -38,15 +44,20 @@ userRoute.post("/login",async(req,res)=>{
     try {
         let user=await UserModel.find({email})
         if(user.length>0){
-            bcrypt.compare(password,user[0].password,async(err,result)=>{
-                if(err)
-                throw err;
-                if(result){
-                    res.status(200).send({msg:"sucessfully Login!","token":jwt.sign({'userID':user[0]._id},'masai'),"Name":user[0].Name})
-                }else{
-                    res.status(400).send({msg:"Wrong credentials"})
-                }
-            })
+            if(user[0].verify){
+                bcrypt.compare(password,user[0].password,async(err,result)=>{
+                    if(err)
+                    throw err;
+                    if(result){
+                        res.status(200).send({msg:"sucessfully Login!","token":jwt.sign({'userID':user[0]._id},'masai'),"Name":user[0].Name})
+                    }else{
+                        res.status(400).send({msg:"Wrong credentials"})
+                    }
+                })
+            }else{
+                res.status(400).send({msg:"Verify your email first !"});
+            }
+            
         }else{
             res.status(400).send({msg:"Registered First!"})
         }
@@ -56,31 +67,63 @@ userRoute.post("/login",async(req,res)=>{
 })
 
 
+userRoute.post("/verifyotp",otpverify, async(req,res)=>{
+    const {Useremail,otp}=req.body;
+    const user=await UserModel.find({email:Useremail});
+    const databaseotp=await UserOTP.find({Useremail});
+     try {
+       if(otp===databaseotp[0].otp){
+        await UserModel.findByIdAndUpdate(user[0]._id, { verify: true });
+        await UserOTP.deleteMany({Useremail});
+        res.status(200).json({msg:"Email verified"});
+       }else{
+        res.status(200).json({msg:"Wrong otp !"});
+       }
+     } catch (error) {
+        res.status(500).send({msg:"Network error !"});
+     }   
+})
+
+userRoute.post("/forget-password",async(req,res)=>{
+    let {email}=req.body;
+    let user=await UserModel.find(email);
+
+    if(user.length===0){
+        res.status(200).send({msg:"user not exist !"})
+    }
+})
+
+
+
 const transporter = nodemailer.createTransport({
     service:'gmail',
     host: 'smtp.gmail.email',
     port: 587,
     secure:false,
     auth: {
-        user: 'yashkumar18gupta@gmail.com',
-        pass: 'ivjkzdcsufghclrb'
+        user: 'lawlink.legal.services@gmail.com',
+        pass: 'qzroppedvawxedzh'
     }
 });
 
-transporter
-     .sendMail({
-        to:"lawlink.legal.services@gmail.com",
-        from:"yashkumar18gupta@gmail.com",
-        subject:"Verify your Email for registraion on LawLink",
-        text:"hey it's from node.js, first mail",
-        html:`<button><a href="https://masaischool.com/">click me</a></button>`
-     })
-     .then(()=>{
-        console.log("mail sent succesfully")
-     })
-     .catch((err)=>{
-        console.log(err)
-     })
+
+function sendOTPforverification(email,otp){
+    transporter
+    .sendMail({
+       from:"lawlink.legal.services@gmail.com",
+       to:email,
+       subject:"Verify your Email for registraion on LawLink",
+       text:"hey it's",
+       html:`<h1>OTP for email verification:${otp}</h1>`
+    })
+    .then(()=>{
+       console.log("mail sent succesfully")
+    })
+    .catch((err)=>{
+       console.log(err)
+    })
+}
+
 
 
 
