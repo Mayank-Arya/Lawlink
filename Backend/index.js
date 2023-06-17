@@ -12,7 +12,7 @@ require("dotenv").config();
 const server=http.createServer(app);
 
 // ========================================Routes
-=======
+
 app.get('/',(req,res) => {
     res.send("Welcome to the home route")
 })
