@@ -5,12 +5,15 @@ const jwt=require('jsonwebtoken');
 const nodemailer=require('nodemailer');
 const otpGenerator = require('otp-generator')
 const userRoute=express.Router();
+const path=require('path')
 const otpverify=require("../Middleware/otp.middleware");
 const { UserOTP } = require('../Models/otp.model');
+
 
 userRoute.post("/register",async(req,res)=>{
     const {Phone_No,email,password,Name , city }=req.body;
     const user=await UserModel.find({email});
+   
     //console.log(Phone_No)
     try {
         
@@ -28,7 +31,7 @@ userRoute.post("/register",async(req,res)=>{
                 otp.save();                                                                          // saving the otp in backend
                 let tokenOTP=jwt.sign({'Useremail':email},'masai');                    // token genration to pass unique email for verification through otp
                 sendOTPforverification(email,OTP);                                                  //  sending email
-                res.status(200).send({msg:"Please verify your email !","token":tokenOTP});         // response 
+                res.status(200).send({msg:"Please verify your email !","token":tokenOTP});         // response     
         }
         else{
             res.status(400).send({msg:"user already exist please Login!"})
@@ -57,7 +60,6 @@ userRoute.post("/login",async(req,res)=>{
             }else{
                 res.status(400).send({msg:"Verify your email first !"});
             }
-            
         }else{
             res.status(400).send({msg:"Registered First!"})
         }
@@ -84,17 +86,45 @@ userRoute.post("/verifyotp",otpverify, async(req,res)=>{
      }   
 })
 
-userRoute.post("/forget-password",async(req,res)=>{
+userRoute.post("/forgot-password",async(req,res)=>{
     let {email}=req.body;
-    let user=await UserModel.find(email);
+    let user=await UserModel.find({email});
 
     if(user.length===0){
         res.status(200).send({msg:"user not exist !"})
+    }else{
+        let token=jwt.sign({'userID':user[0]._id},'masai',{ expiresIn:'15m' });
+       let link=`https://127.0.0.1:8080/user/${user[0]._id}/${token}`
+       sendemailrestlink(email,link);
+       res.status(200).send({msg:"link to reset password has been sent to your registered email !"})
     }
+});
+
+userRoute.get("/reset/:userid/:token",async(req,res)=>{
+    
+    res.sendFile(path.join(__dirname,'../../Frontend/passwordPage/passreset.html'))
+   
 })
 
-
-
+userRoute.patch("/reset/:userid/:token",async(req,res)=>{
+    const {userid}=req.params;
+    const {confirmpassword,password}=req.body
+    
+    try {
+        if(password===confirmpassword){
+            const salt = bcrypt.genSaltSync(5);
+        const hash = bcrypt.hashSync(confirmpassword, salt);
+        await UserModel.findByIdAndUpdate({_id:userid},{password:hash});
+        res.status(200).send({msg:"new password updated !"})
+        }else{
+            res.status(200).send({msg:"confirm password should match new password !" })
+        }
+        
+    } catch (error) {
+        res.status(404).send({msg:error.message});
+    }
+    
+})
 const transporter = nodemailer.createTransport({
     service:'gmail',
     host: 'smtp.gmail.email',
@@ -115,6 +145,24 @@ function sendOTPforverification(email,otp){
        subject:"Verify your Email for registraion on LawLink",
        text:"hey it's",
        html:`<h1>OTP for email verification:${otp}</h1>`
+    })
+    .then(()=>{
+       console.log("mail sent succesfully")
+    })
+    .catch((err)=>{
+       console.log(err)
+    })
+}
+
+
+function sendemailrestlink(email,link){
+    transporter
+    .sendMail({
+       from:"lawlink.legal.services@gmail.com",
+       to:email,
+       subject:"link to reset your password",
+       //text:"hey it's",
+       html:`<p>Link for resetting your password <a href=${link}> link</a></p>`
     })
     .then(()=>{
        console.log("mail sent succesfully")
