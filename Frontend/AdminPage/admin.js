@@ -1,5 +1,6 @@
 
-let producturl = "https://63f1ba774f17278c9a18b9b9.mockapi.io/product"
+
+let producturl = `http://localhost:9090/lawyer`
 let loginurl = "https://63f1ba774f17278c9a18b9b9.mockapi.io/login"
 
 let mainSection = document.getElementById("mainsection")
@@ -13,76 +14,19 @@ let noofstock = document.getElementById("noofstock")
 let noofproduct = document.getElementById("noofproduct")
 let localstorageurl = localStorage.getItem("location")
 
-function fetchurl() {
-    fetch(`${producturl}`).then((res) => {
-        return res.json()
-    })
-        .then((data) => {
-            console.log(data)
-            render(data)
-        })
-}
-fetchurl()
+// function fetchurl() {
+//     fetch(`${producturl}/getLawyer`).then((res) => {
+//         return res.json()
+//     })
+//         .then((data) => {
+//             console.log(data)
+//             render(data)
+//         })
+// }
+// fetchurl()
 
 
 
-
-//----------------------------------------Donut Chart-----------------------------------------------------
-
-
-let count1 = 0, count2 = 0, count3 = 0, count4 = 0, count5 = 0;
-function render(data) {
-    noofproduct.innerHTML = data.length;
-
-    for (let x = 0; x <= data.length - 1; x++) {
-        if (data[x].Stock == "In Stock") {
-            count2++
-        }
-        if (data[x].rating.length == 5) {
-            count5++
-        }
-        if (data[x].Stock == "Out of Stock") {
-            count3++
-        }
-    }
-    noofstock.innerText = count2;
-    noofbestseller.innerText = count5;
-    count4 = data.length;
-
-    let obj = {}
-    for (let x = 0; x <= data.length - 1; x++) {
-        if (obj[data[x].color] == undefined) {
-            obj[data[x].color] = 1
-        }
-        else {
-            obj[data[x].color]++
-        }
-    }
-    for (let key in obj) {
-        count1++
-    }
-
-
-    google.charts.load("current", { packages: ["corechart"] });
-    google.charts.setOnLoadCallback(drawChart);
-    function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-            ['Task', 'Hours per Day'],
-            ['Colours', count1],
-            ['In Stock', count2],
-            ['Out of Stock', count3],
-            ['Products', count4],
-            ['Best sales', count5]
-        ]);
-
-        var options = {
-            title: 'All Coats & Jackets details',
-            pieHole: 0.4,
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-        chart.draw(data, options);
-    }
 
     //-------------------------------------Dashboard-------------------------------------------------------------------
 
@@ -125,7 +69,7 @@ function render(data) {
 
     })
 
-}
+
 
 
 
@@ -139,22 +83,23 @@ Product.addEventListener("click", () => {
 
 
 function fetchurlofproduct() {
-    fetch(`${producturl}`).then((res) => {
+    fetch(`${producturl}/getLawyer`).then((res) => {
         return res.json()
     })
         .then((data) => {
             renderproduct(data)
+            console.log(data)
         })
 }
 
 function renderproduct(data) {
     mainSection.innerHTML = `<div>
-        <h2 style="font-size: 25px; margin-bottom: 30px; color:white;">Product list</h2>
+        <h1 style="font-size: 25px; margin-bottom: 30px; color:white;">Lawyers</h1>
         <div id="crud" style="font-size:18px; margin-bottom: 10px;  display:flex; justify-content: space-around; background-color:white; padding: 10px;">
-                    <h3 id="addbtn">Add Product</h3>
-                    <h3 id="removebtn">Remove Product</h3>
-                    <h3 id="updateallitem">Update Data</h3>
-                    <h3 id="updatekey">Update key value</h3>
+                    <h3 id="addbtn">| Add Lawyer |</h3>
+                    <h3 id="removebtn">| Remove Lawyer |</h3>
+                    <h3 id="updateallitem">| Update Lawyer Data |</h3>
+                    
                 </div>
 
                 
@@ -168,45 +113,19 @@ function renderproduct(data) {
                             <p><b>First Image</b></p>
                             <input id="addfimageinput" type="text" placeholder="Image url">
                         </div>
-                        <div>
-                            <p><b>Second Image</b></p>
-                            <input id="addsimageinput" type="text" placeholder="Image url">
-                        </div>
-                        
-                        <div>
-                            <p><b>Third Image</b></p>
-                            <input id="addtimageinput" type="text" placeholder="Image url">
-                        </div>
-                        <div>
-                            <p><b>Fourth Image</b></p>
-                            <input id="addfoimageinput" type="text" placeholder="Image url">
-                        </div>
-                        <div>
-                            <p><b>Fifth Image</b></p>
-                            <input id="addfivimage" type="text" placeholder="Image url">
-                        </div>
+
                         <div>
                             <p><b>Description</b></p>
                             <input id="adddescriptioninput" type="text" placeholder="Brand">
                         </div>
                         <div>
-                            <p><b>Price</b></p>
+                            <p><b>Fee</b></p>
                             <input id="addpriceinput" type="number" placeholder="Price">
                         </div>
+
+
                         <div>
-                            <p><b>Set Discount</b></p>
-                            <input id="adddiscountinput" type="text" placeholder="Set discount">
-                        </div>
-                        <div>
-                            <p><b>Color of Product</b></p>
-                            <input id="addcolorinput" type="text" placeholder="Color of product">
-                        </div>
-                        <div>
-                            <p><b>Set Size</b></p>
-                            <input id="addsize" type="text" placeholder="Set size of product">
-                        </div>
-                        <div>
-                            <p><b>Set Product Type</b></p>
+                            <p><b>Specialisation</b></p>
                             <input id="addproducttype" type="text" placeholder="Type of product">
                         </div>
                         
@@ -236,116 +155,30 @@ function renderproduct(data) {
 
                 </div>
 
-                <div id="mainsectionupdateall">
-                    <div id="updateall">
-                        <div>
-                            <h4>Working on ID number<h4>
-                            <h1 style="text-align:center; margin-top:10px;" id="putid"><h1>
-                        </div>
-                        <div>
-                            <p><b>Title of product</b></p>
-                            <input id="puttitle" type="text" placeholder="Name of product">
-                        </div>
-                        <div>
-                            <p><b>First Image</b></p>
-                            <input id="putfimage" type="text" placeholder="Image url">
-                        </div>
-                        <div>
-                            <p><b>Second Image</b></p>
-                            <input id="putsimage" type="text" placeholder="Image url">
-                        </div>
-                        <div>
-                            <p><b>Third Image</b></p>
-                            <input id="puttimage" type="text" placeholder="Image url">
-                        </div>
-                        
-                        <div>
-                            <p><b>Fourth Image</b></p>
-                            <input id="putfoimage" type="text" placeholder="Image url">
-                        </div>
-                        <div>
-                            <p><b>Fifth Image</b></p>
-                            <input id="putfivimage" type="text" placeholder="Image url">
-                        </div>
-                        <div>
-                            <p><b>Description</b></p>
-                            <input id="putdescription" type="text" placeholder="Brand">
-                        </div>
-                        <div>
-                            <p><b>Price</b></p>
-                            <input id="putprice" type="number" placeholder="Price">
-                        </div>
-                        <div>
-                            <p><b>Set Discount</b></p>
-                            <input id="putdiscount" type="text" placeholder="Set discount">
-                        </div>
-                        <div>
-                            <p><b>Color of Product</b></p>
-                            <input id="putcolor" type="text" placeholder="Color of product">
-                        </div>
-                        <div>
-                            <p><b>Set Stock</b></p>
-                            <input id="putstock" type="text" placeholder="Set stock">
-                        </div>
-                        <div>
-                            <p><b>Size of Product</b></p>
-                            <input id="putsize" type="text" placeholder="Set product size">
-                        </div>
-                        <div>
-                            <p><b>Type of product</b></p>
-                            <input id="puttype" type="text" placeholder="Set product type">
-                        </div>
-                        
-                        
-                    </div>
-                    <div style="display: flex; justify-content:center; aling-item:center; margin-top:20px; ">
-                            <button id="updattingallbtn" >Update All</button>
-                        </div>
 
-                </div>
 
-                <div id="mainsectionupdatesingle">
-                    <div id="updatesingle">
-                        <div id="updatesinglepro">
-                        <div>
-                            <p><b>ID of product</b></p>
-                            <input id="patchid" type="number" placeholder="Product ID">
-                        </div>
-                        
-                        <div>
-                            <p><b>Product price</b></p>
-                            <input id="patchprice" type="number" placeholder="Product price">
-                        </div>
-                        </div>
-                        <div style="display: flex; justify-content:center; align-item:center; padding-right:10px; margin-top:20px; margin-bottom: 20px;">
-                            
-                            <button id="updatesinglebtn" >
-                                Update price
-                            </button>
-                        </div>
-                        
-                    </div>
-
-                </div>
+                
 
         
         <div id="dashtwo">
         
-        ${data.map((item) => getdata(item.id, item.image1, item.title, item.Stock, item.price, item.description1)).join("")}
+        ${data.map((item) => getdata(item.id, item.image, item.name, item.price, item.bio,item.rating)).join("")}
         </div>
         </div>`
 
-    function getdata(id, img, title, stock, price, desc) {
+    function getdata(id,image,name,   price, bio,rating) {
         let card = `<div data-id=${id} class="eachdiv" id="productdiv">
                 <div>
-                <img id="productimg" src="${img}" alt="">
+                <img id="productimg" src="${image}" alt="">
                 </div>
                 <div style="padding: 10px 10px;">
-                <h3>${title}</h3>
-                <p>Stock:- ${stock}</p>
-                <p>Price:- ${price}</p>
-                <p>${desc}</p>
+                <h3>${name}</h3>
+                
+                <p>Price:- ₹ ${price}</p>
+                <p>Bio:- ${bio} </p>
+                <p>Rating:- ${rating}</p>
                 <p style="color: rgb(78, 172, 239);" class="edit" data-id=${id}>EDIT</p>
+
                 </div>
             </div>
          `
@@ -556,311 +389,240 @@ function renderproduct(data) {
     })
 
     // =================================== (DELETE) operation ==========================
-    removebttn.addEventListener("click", () => {
-        let deleteid = removeid.value;
-        fetch(`${producturl}/${deleteid}`, {
-            method: "DELETE",
+//     removebttn.addEventListener("click", () => {
+//         let deleteid = removeid.value;
+//         fetch(`${producturl}/${deleteid}`, {
+//             method: "DELETE",
 
-        }).then((res) => {
-            return res.json()
-        }).then((data) => {
-            fetchurlofproduct()
-        })
-    })
+//         }).then((res) => {
+//             return res.json()
+//         }).then((data) => {
+//             fetchurlofproduct()
+//         })
+//     })
 
-
-    // =================================== (PUT) operation ==========================
-    updattingallbtn.addEventListener("click", () => {
-        let idwewant = putid.innerText;
-        
-        let obj = {
-            "Stock": `${putstock.value}`,
-            "category": `${putdiscount.value}`,
-            "color": `${putcolor.value}`,
-            "description1": `${putdescription.value}`,
-            "image1": `${putfimage.value}`,
-            "image2": `${putsimage.value}`,
-            "image3": `${puttimage.value}`,
-            "image4": `${putfoimage.value}`,
-            "image5": `${putfivimage.value}`,
-            "price": `${putprice.value}`,
-            "rating": "⭐⭐⭐⭐⭐",
-            "title": `${puttitle.value}`,
-            "top": "Limited Time price!",
-            "size":`${putsize.value}`,
-            "productType":`${puttype.value}`
-        }
-
-        fetch(`${producturl}/${idwewant}`, {
-            method: "PUT",
-            headers: {
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify(obj)
-        })
-            .then((res) => {
-                return res.json()
-            })
-            .then((data) => {
-                fetchurlofproduct()
-            })
-
-
-    })
-
-
-    // =================================== (PATCH) operation ==========================
-    updatesinglebtn.addEventListener('click',()=>{
-    
-        console.log(patchid.value,patchprice.value)
-        
-        fetch(`${producturl}/${patchid.value}`,{
-            method:"PUT",
-            headers:{
-                "Content-type": "application/json" 
-            },
-            body: JSON.stringify({
-                "price":`${patchprice.value}`
-            })
-        })
-        .then((res)=>{
-            return res.json()
-        })
-        .then((data)=>{
-            console.log(data)
-            fetchurlofproduct()
-        })
-
-    })
-
-
-}
-
-
-
-
-
+// }
 
 
 
 // ------------------------------------------profile Section-------------------------------------------------------
-adminprofile.addEventListener("click", () => {
-    mainSection.innerHTML = "";
+// adminprofile.addEventListener("click", () => {
+//     mainSection.innerHTML = "";
 
-    fetch(`${loginurl}`).then((res) => {
-        return res.json()
-    })
-        .then((data) => {
+//     fetch(`${loginurl}`).then((res) => {
+//         return res.json()
+//     })
+//         .then((data) => {
 
-            createprofile(data)
-        })
+//             createprofile(data)
+//         })
 
-    function createprofile(data) {
-        mainSection.innerHTML = `
-<h1 id="profilehead">Profile details</h1>
-<div id="mainofprofile">
-  ${data.map((item) => getcardthree(item.id, item.image, item.firstname, item.surname, item.mobile, item.email, item.description)).join("")}  
-</div>
-`
+//     function createprofile(data) {
+//         mainSection.innerHTML = `
+// <h1 id="profilehead">Profile details</h1>
+// <div id="mainofprofile">
+//   ${data.map((item) => getcardthree(item.id, item.image, item.firstname, item.surname, item.mobile, item.email, item.description)).join("")}  
+// </div>
+// `
 
-        let locationpage = document.querySelectorAll(".location")
-        for (let loc of locationpage) {
-            loc.addEventListener("click", (e) => {
-                e.preventDefault()
-                console.log(e.target.dataset.id)
-                fetch(`${loginurl}/${e.target.dataset.id}`)
-                    .then((res) => {
-                        return res.json()
-                    })
-                    .then((data) => {
-                        console.log(data)
-                        localStorage.setItem("location", data.location)
-                        window.location.href = "location.html"
-                    })
-            })
-        }
-    }
+//         let locationpage = document.querySelectorAll(".location")
+//         for (let loc of locationpage) {
+//             loc.addEventListener("click", (e) => {
+//                 e.preventDefault()
+//                 console.log(e.target.dataset.id)
+//                 fetch(`${loginurl}/${e.target.dataset.id}`)
+//                     .then((res) => {
+//                         return res.json()
+//                     })
+//                     .then((data) => {
+//                         console.log(data)
+//                         localStorage.setItem("location", data.location)
+//                         window.location.href = "location.html"
+//                     })
+//             })
+//         }
+//     }
 
-    function getcardthree(id, image, fname, lname, mob, email, desc) {
-        let cardthree = `
-    <div id="carddiv">
-            <div id="proimgdiv">
-                <div id="firstpro">
-                <img id="profileimg" src=${image} alt="">
-                </div>
-                <div id="secondpro">
-                <p style="padding: 5px;">"${desc}"</p>
-                </div>
-            </div>
-            <div id="detailsection">
-                <div id="location">
-                    <div>
-                       <img data-id=${id} class="location" src="./image/icons8-user-location-30.png" alt="">
-                    </div>
-                    <div>
-                    <p>Location</p>
-                    </div>
-                </div>
-                <div id="userdata">
-                <h3>Full Stack Web Developer</h3>
-                <p id="name">Name:- ${fname} ${lname}</p>
-                <p id="mobile">Mob:- ${mob}</p>
-                <p id="email">Email:- ${email}</p>
+//     function getcardthree(id, image, fname, lname, mob, email, desc) {
+//         let cardthree = `
+//     <div id="carddiv">
+//             <div id="proimgdiv">
+//                 <div id="firstpro">
+//                 <img id="profileimg" src=${image} alt="">
+//                 </div>
+//                 <div id="secondpro">
+//                 <p style="padding: 5px;">"${desc}"</p>
+//                 </div>
+//             </div>
+//             <div id="detailsection">
+//                 <div id="location">
+//                     <div>
+//                        <img data-id=${id} class="location" src="./image/icons8-user-location-30.png" alt="">
+//                     </div>
+//                     <div>
+//                     <p>Location</p>
+//                     </div>
+//                 </div>
+//                 <div id="userdata">
+//                 <h3>Full Stack Web Developer</h3>
+//                 <p id="name">Name:- ${fname} ${lname}</p>
+//                 <p id="mobile">Mob:- ${mob}</p>
+//                 <p id="email">Email:- ${email}</p>
                     
-                </div>
-            </div>
-        </div>
-    `
-        return cardthree;
-    }
+//                 </div>
+//             </div>
+//         </div>
+//     `
+//         return cardthree;
+//     }
 
-})
+// })
 
 
 
 // ------------------------------------------Create Account Section---------------------------------------
 
-let createaccount = document.getElementById("create")
-createaccount.addEventListener("click", () => {
-    mainSection.innerHTML = "";
-    mainSection.innerHTML = `
-                    <div id="createparentdivv">
-                        <h2 style="margin-bottom: 30px; color:white;">Create Admin Account</h2>
-                        <div style="width:100%;">
-                            <form action="">
-                                <div id="createmain">
-                                <div>
-                                <h3>Firstname</h3>
-                                <input id="createfirstname" placeholder="Firstname" type="text">
-                                </div>
-                                <div>
-                                <h3>Lastname</h3>
-                                <input id="createlastname" placeholder="Lastname" type="text">
-                                </div>
-                                <div>
-                                <h3>Phone number</h3>
-                                <input id="createphonenumber" placeholder="Phone number" type="number">
-                                </div>
-                                <div>
-                                <h3>Description</h3>
-                                <input id="createdescription" placeholder="Description" type="text">
-                                </div>
-                                <div>
-                                <h3>Location url</h3>
-                                <input id="createlocationurl" placeholder="Location url" type="text">
-                                </div>
-                                <div>
-                                <h3>Imageurl</h3>
-                                <input id="createimageurl" placeholder="Image url" type="text">
-                                </div>
-                                <div>
-                                <h3>Email</h3>
-                                <input id="createemail" placeholder="Email" type="email">
-                                </div>
-                                <div>
-                                <h3>Password</h3>
-                                <input id="createpassword" placeholder="Set password" type="password">
-                                </div>
-                                </div>
-                                <div style="display: flex; justify-content:center;  text-align:center; padding-right:80px; margin-top: 40px; ">
-                                <input id="addmember"  type="submit">
-                                </div>
-                                <div style="height: 400px; ">
-                                </div>
-                            </form>
-                        </div>
-                    </div>`
+// let createaccount = document.getElementById("create")
+// createaccount.addEventListener("click", () => {
+//     mainSection.innerHTML = "";
+//     mainSection.innerHTML = `
+//                     <div id="createparentdivv">
+//                         <h2 style="margin-bottom: 30px; color:white;">Create Admin Account</h2>
+//                         <div style="width:100%;">
+//                             <form action="">
+//                                 <div id="createmain">
+//                                 <div>
+//                                 <h3>Firstname</h3>
+//                                 <input id="createfirstname" placeholder="Firstname" type="text">
+//                                 </div>
+//                                 <div>
+//                                 <h3>Lastname</h3>
+//                                 <input id="createlastname" placeholder="Lastname" type="text">
+//                                 </div>
+//                                 <div>
+//                                 <h3>Phone number</h3>
+//                                 <input id="createphonenumber" placeholder="Phone number" type="number">
+//                                 </div>
+//                                 <div>
+//                                 <h3>Description</h3>
+//                                 <input id="createdescription" placeholder="Description" type="text">
+//                                 </div>
+//                                 <div>
+//                                 <h3>Location url</h3>
+//                                 <input id="createlocationurl" placeholder="Location url" type="text">
+//                                 </div>
+//                                 <div>
+//                                 <h3>Imageurl</h3>
+//                                 <input id="createimageurl" placeholder="Image url" type="text">
+//                                 </div>
+//                                 <div>
+//                                 <h3>Email</h3>
+//                                 <input id="createemail" placeholder="Email" type="email">
+//                                 </div>
+//                                 <div>
+//                                 <h3>Password</h3>
+//                                 <input id="createpassword" placeholder="Set password" type="password">
+//                                 </div>
+//                                 </div>
+//                                 <div style="display: flex; justify-content:center;  text-align:center; padding-right:80px; margin-top: 40px; ">
+//                                 <input id="addmember"  type="submit">
+//                                 </div>
+//                                 <div style="height: 400px; ">
+//                                 </div>
+//                             </form>
+//                         </div>
+//                     </div>`
 
 
-    let form = document.querySelector("form")
-    form.addEventListener("submit", (e) => {
-        e.preventDefault()
-        let obj = {
-            "image": form.createimageurl.value,
-            "firstname": form.createfirstname.value,
-            "surname": form.createlastname.value,
-            "mobile": form.createphonenumber.value,
-            "email": form.createemail.value,
-            "description": form.createdescription.value,
-            "location": form.createlocationurl.value,
-            "password": form.createpassword.value
-        }
+//     let form = document.querySelector("form")
+//     form.addEventListener("submit", (e) => {
+//         e.preventDefault()
+//         let obj = {
+//             "image": form.createimageurl.value,
+//             "firstname": form.createfirstname.value,
+//             "surname": form.createlastname.value,
+//             "mobile": form.createphonenumber.value,
+//             "email": form.createemail.value,
+//             "description": form.createdescription.value,
+//             "location": form.createlocationurl.value,
+//             "password": form.createpassword.value
+//         }
 
-        fetch(`${loginurl}`, {
-            method: "POST",
-            headers: {
-                "Content-type": "application/json",
-            },
-            body: JSON.stringify(obj)
-        }).then((res) => {
-            return res.json()
-        })
-            .then((data) => {
-                console.log(data)
-                window.location.href = "admin.html"
+//         fetch(`${loginurl}`, {
+//             method: "POST",
+//             headers: {
+//                 "Content-type": "application/json",
+//             },
+//             body: JSON.stringify(obj)
+//         }).then((res) => {
+//             return res.json()
+//         })
+//             .then((data) => {
+//                 console.log(data)
+//                 window.location.href = "admin.html"
 
-            })
+//             })
 
-    })
+//     })
 
 
-})
+// })
 
 
 
 
 // -----------------------------------------------Order List Section--------------------------------------------
-let formDataArr = JSON.parse(localStorage.getItem("userform")) || [];
+// let formDataArr = JSON.parse(localStorage.getItem("userform")) || [];
 
-let orderlist = document.getElementById("order")
-orderlist.addEventListener("click", () => {
-    mainSection.innerHTML = "";
-    mainSection.innerHTML = `
+// let orderlist = document.getElementById("order")
+// orderlist.addEventListener("click", () => {
+//     mainSection.innerHTML = "";
+//     mainSection.innerHTML = `
     
-    <h2 style="margin-bottom:30px; color:white">Network of System</h2>
-    <div id="network" style="height:380px; margin-bottom: 20px;">
-        <div style=" padding-top: 150px; display:flex; justify-content:center; align-item:center;">
-            <div id="containClickbtn" >
-    <h1 style= "border:2px solid white; padding: 5px 10px; color: white; "><a style="color:white; text-decoration: none;" href="network.html">Click to check the network of product<a></h1>
-    </div>
-    </div>
-    </div>
-    <h2 style="margin-bottom:30px; color:white">Order Details</h2>
-    <div id="alltable">
-    <table style="color: white; width: 100%; border: 2px solid white; text-align: left; padding-left: 10px;">
-    <thead >
-        <tr>
-            <th>User Name</th>
-            <th>User Email ID</th>
-            <th>User pincode</th>
-            <th>User Contact</th>
-            <th>User Location</th>
-        </tr> 
-    </thead>
-    <tbody >
-        ${formDataArr.map((item) => getdatatable(item.firstName, item.lastname, item.Email, item.pincode, item.mobile, item.Address1, item.city, item.country)).join(" ")}
-    </tbody>
-</table>
-<div style="height:400px;"></div>
-</div>
-    `
+//     <h2 style="margin-bottom:30px; color:white">Network of System</h2>
+//     <div id="network" style="height:380px; margin-bottom: 20px;">
+//         <div style=" padding-top: 150px; display:flex; justify-content:center; align-item:center;">
+//             <div id="containClickbtn" >
+//     <h1 style= "border:2px solid white; padding: 5px 10px; color: white; "><a style="color:white; text-decoration: none;" href="network.html">Click to check the network of product<a></h1>
+//     </div>
+//     </div>
+//     </div>
+//     <h2 style="margin-bottom:30px; color:white">Order Details</h2>
+//     <div id="alltable">
+//     <table style="color: white; width: 100%; border: 2px solid white; text-align: left; padding-left: 10px;">
+//     <thead >
+//         <tr>
+//             <th>User Name</th>
+//             <th>User Email ID</th>
+//             <th>User pincode</th>
+//             <th>User Contact</th>
+//             <th>User Location</th>
+//         </tr> 
+//     </thead>
+//     <tbody >
+//         ${formDataArr.map((item) => getdatatable(item.firstName, item.lastname, item.Email, item.pincode, item.mobile, item.Address1, item.city, item.country)).join(" ")}
+//     </tbody>
+// </table>
+// <div style="height:400px;"></div>
+// </div>
+//     `
 
 
 
-})
+// })
 
-function getdatatable(firstname, lastname, email, pincode, mobile, address, city, country) {
-    let name = `${firstname} ${lastname}`;
-    let properAddress = `${address},${city},${country}`
-    let card = `
-        <tr>
-            <td>${name}</td>
-            <td>${email}</td>
-            <td>${pincode}</td>
-            <td>${mobile}</td>
-            <td>${properAddress}</td>
-        </tr>
+// function getdatatable(firstname, lastname, email, pincode, mobile, address, city, country) {
+//     let name = `${firstname} ${lastname}`;
+//     let properAddress = `${address},${city},${country}`
+//     let card = `
+//         <tr>
+//             <td>${name}</td>
+//             <td>${email}</td>
+//             <td>${pincode}</td>
+//             <td>${mobile}</td>
+//             <td>${properAddress}</td>
+//         </tr>
 
-    `
-    return card
+//     `
+//     return card
 }

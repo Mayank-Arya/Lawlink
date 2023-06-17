@@ -21,12 +21,36 @@
         padding: 0;
         box-sizing: border-box;
       }
+      .main_chat_container {
+        height: 100vh;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        /* border: 1px solid rgb(55, 0, 255); */
+      }
+      .main_chat_container > div {
+        width: 50vw;
+        height: 80%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        /* border: 1px solid rgb(4, 161, 64); */
+      }
       .message_container {
         width: 100vw;
         height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
+      }
+      .chat_section {
+        display: none;
+        width: 50%;
+      }
+      .chat_section > div > div > div {
+        /* border: 1px solid red; */
+        height: 100%;
+        width: 100%;
       }
 
       .message_container .box {
@@ -44,11 +68,11 @@
         align-items: flex-start;
         /* border: 1px solid lime; */
       }
-      .message_container .chat_box .user {
+      .message_container .chat_box .lawyer {
         background-color: grey;
         color: #ffff;
       }
-      .message_container .chat_box .lawyer {
+      .message_container .chat_box .user {
         background-color: rgba(0, 255, 0, 0.475);
         align-self: flex-end;
         margin: 3px 0;
@@ -63,48 +87,132 @@
         margin-bottom: 6px;
         max-width: 90%;
       }
+      .allChatsContainer {
+        width: 24vw;
+        max-height: 60vh;
+      }
+      .allChatsContainer #myLawyers {
+        border-radius: 0 0 15px 15px;
+        border: 1px solid;
+        /* height: 50vh; */
+        height: 0px;
+        /* display: none; */
+        overflow-y: auto;
+        transition: 0.3s;
+      }
+      .item {
+        height: 50px;
+        display: flex;
+      }
+      .item .itemText {
+        line-height: 5px;
+        padding: 10px;
+      }
+      .lastMessage {
+        font-size: 12px;
+        color: #707070;
+      }
     </style>
   </head>
   <body>
-    
-    
-    <section style="background-color: #eee">
-      <div class="container py-5">
-        <div class="row d-flex justify-content-center">
-          <div class="col-md-8 col-lg-6 col-xl-4">
-            <div class="card" id="chat1" style="border-radius: 15px">
-              <div
-                class="card-header d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0"
-                style="
-                  border-top-left-radius: 15px;
-                  border-top-right-radius: 15px;
-                "
-              >
-                <i class="fas fa-angle-left"></i>
-                <p class="mb-0 fw-bold">Live chat</p>
-                <i class="fas fa-times"></i>
-              </div>
-              <div class="card-body">
-                <div id="chat_box" style="max-height: 300px; overflow-y: auto; padding-right: 10px;">
-                  
-                </div>
+    <div class="main_chat_container">
+      <div>
+        <section style="" class="chat_section" id="chat_section">
+          <div class="container" style="height: 100%">
+            <div class="row d-flex justify-content-center">
+              <div class="col-md-8 col-lg-6 col-xl-4">
+                <div class="card" id="chat1" style="border-radius: 15px">
+                  <div
+                    class="card-header d-flex justify-content-between align-items-center bg-info text-white border-bottom-0"
+                    style="
+                      border-top-left-radius: 15px;
+                      border-top-right-radius: 15px;
+                    "
+                  >
+                    <!-- <i class="fas fa-angle-left"></i> -->
+                    <p class="mb-0 fw-bold">Live chat</p>
+                    <i class="fas fa-times" onclick="closeChatBox()"></i>
+                  </div>
+                  <div class="card-body">
+                    <div
+                      id="chat_box"
+                      style="
+                        max-height: 300px;
+                        overflow-y: auto;
+                        padding-right: 10px;
+                      "
+                    ></div>
 
-                <div class="form-outline">
-                  <textarea
-                    class="form-control"
-                    id="message"
-                    rows="4"
-                    placeholder="Type your message"
-                  ></textarea>
-                  <i class="fa fa-duotone fa-paper-plane" onclick="sendMessage()"></i>
+                    <div class="form-outline">
+                      <form id="msg_form">
+                        <input
+                          class="form-control"
+                          id="message"
+                          placeholder="Type your message"
+                        />
+                        <!-- <textarea
+                            class="form-control"
+                            id="message"
+                            rows="2"
+                            placeholder="Type your message"
+                          ></textarea> -->
+                      </form>
+                      <!-- <i class="fa fa-duotone fa-paper-plane" onclick="sendMessage()"></i> -->
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </section>
+        <section class="allChatsContainer">
+          <div class="container">
+            <div
+              class="card-header d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0"
+              style="
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+              "
+            >
+              <!-- <i class="fas fa-angle-left"></i> -->
+              <p class="mb-0 fw-bold">Live chat</p>
+              <i
+                class="fa-brands fa-rocketchat fa-fade"
+                onclick="toggleChats()"
+              ></i>
+            </div>
+            <div class="box" id="myLawyers">
+              <div
+                class="item myLawyers"
+                id="yeah"
+                data-lawyerId="user@example.com"
+              >
+                <img
+                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
+                  alt=""
+                  style="width: 45px; height: 100%"
+                />
+                <div class="itemText">
+                  <p class="name">User pro</p>
+                  <p class="lastMessage">Last message .....</p>
+                </div>
+              </div>
+              <div class="item myLawyers" data-lawyerId="user2@example.com">
+                <img
+                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
+                  alt=""
+                  style="width: 45px; height: 100%"
+                />
+                <div class="itemText">
+                  <p class="name">User pro</p>
+                  <p class="lastMessage">Last message .....</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
-    </section>
-
+    </div>
 
     <script
       src="https://cdn.socket.io/4.6.0/socket.io.min.js"
@@ -114,14 +222,32 @@
 
     <script>
       const socket = io("http://localhost:8080", { transports: ["websocket"] });
+      const lawyerChatEmail = "jane.smith@example.com";
+      let myUserEmail = "";
       const display_box = document.getElementById("chat_box");
+      const myLawyers = document.querySelectorAll(".myLawyers");
+      const chatSection = document.getElementById("chat_section");
+      myLawyers.forEach((ele) => {
+        ele.addEventListener("click", () => {
+          myUserEmail = ele.getAttribute("data-lawyerId");
+          chatSection.style.display = "block";
+          updateChatBox(myUserEmail);
+        });
+      });
 
       // Connect to the server
       socket.on("connect", () => {
-        socket.emit("registerLawyer", { lawyerId: "lawyer5" });
+        socket.emit("registerLawyer", { lawyerId: lawyerChatEmail });
       });
 
       // Send a message to a user
+      // Send a message to a lawyer
+      document
+        .getElementById("msg_form")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          sendMessage();
+        });
       function sendMessage() {
         // const lawyerId = document.getElementById('lawyerId').value;
         const message = document.getElementById("message").value;
@@ -132,18 +258,21 @@
                   </div>
                   <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
                     alt="avatar 1" style="width: 45px; height: 100%;">
-        `
+        `;
 
         const received_msg = document.createElement("div");
-        received_msg.setAttribute("class", "d-flex flex-row justify-content-end mb-4");
-        received_msg.innerHTML = chatData
+        received_msg.setAttribute(
+          "class",
+          "d-flex flex-row justify-content-end mb-4"
+        );
+        received_msg.innerHTML = chatData;
         display_box.append(received_msg);
 
         display_box.scrollTop = display_box.scrollHeight;
 
         const data = {
-          lawyerId: "lawyer5",
-          email: "user7@example.com",
+          lawyerId: lawyerChatEmail,
+          email: myUserEmail,
           chatting: {
             textMsg: message,
             sendBy: "lawyer",
@@ -162,11 +291,14 @@
                   <div class="p-2 ms-1" style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
                     <p class="small mb-0">${message}</p>
                   </div>
-        `
+        `;
 
         const received_msg = document.createElement("div");
-        received_msg.setAttribute("class", "d-flex flex-row justify-content-start mb-4");
-        received_msg.innerHTML = chatData
+        received_msg.setAttribute(
+          "class",
+          "d-flex flex-row justify-content-start mb-4"
+        );
+        received_msg.innerHTML = chatData;
         display_box.append(received_msg);
 
         display_box.scrollTop = display_box.scrollHeight;
@@ -174,11 +306,11 @@
       });
 
       // update chat box
-      updateChatBox();
+      // updateChatBox();
 
       function updateChatBox() {
         fetch(
-          "http://localhost:8080/myChat?lawyerId=lawyer5&email=user7@example.com"
+          `http://localhost:8080/myChat?lawyerId=${lawyerChatEmail}&email=${myUserEmail}`
         )
           .then((req) => req.json())
           .then((res) => appendChaBox(res));
@@ -212,7 +344,20 @@
             }
           })
           .join("");
-          display_box.scrollTop = display_box.scrollHeight;
+        display_box.scrollTop = display_box.scrollHeight;
+      }
+
+      function closeChatBox() {
+        chatSection.style.display = "none";
+      }
+      function toggleChats() {
+        const element = document.getElementById("myLawyers");
+        console.log(element.style.height);
+        if (element.style.height == "0px" || element.style.height == false) {
+          element.style.height = "50vh";
+        } else {
+          element.style.height = 0;
+        }
       }
     </script>
   </body>

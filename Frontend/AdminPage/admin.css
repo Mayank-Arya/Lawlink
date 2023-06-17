@@ -160,7 +160,7 @@ background: linear-gradient(68deg, rgba(156,133,143,0.8800770308123249) 0%, rgba
     margin: auto;
     margin-top: 40px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 30px;
 
 }
@@ -175,8 +175,25 @@ background: linear-gradient(68deg, rgba(156,133,143,0.8800770308123249) 0%, rgba
 
 #productdiv {
     border-radius: 7px;
-    background-color: white;
+    /* background-color: red; */
+
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    
+
+background-image: linear-gradient(
+  315deg,
+  hsl(0deg 8% 65%) 0%,
+  hsl(30deg 17% 68%) 8%,
+  hsl(42deg 28% 71%) 16%,
+  hsl(48deg 42% 74%) 27%,
+  hsl(52deg 59% 77%) 38%,
+  hsl(55deg 81% 79%) 52%,
+  hsl(40deg 34% 70%) 67%,
+  hsl(349deg 13% 59%) 79%,
+  hsl(287deg 18% 43%) 88%,
+  hsl(266deg 45% 31%) 95%,
+  hsl(240deg 100% 20%) 100%
+);
 
 }
 

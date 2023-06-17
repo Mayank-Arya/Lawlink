@@ -2,7 +2,9 @@ const mongoose=require('mongoose');
 
 const userSchema=mongoose.Schema({
     Phone_No:Number,
-    email:String,
+    email:{
+        unique:true,
+        type:String},
     Name:String,
     password:String,
     city:String,
