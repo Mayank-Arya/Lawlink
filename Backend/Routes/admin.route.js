@@ -6,6 +6,7 @@ const {AllAdmins, getAdminbyID, addAdmin} = require('../Controllers/admin.contro
 adminRouter.get("/", (req,res) => {
     res.json("This is the admin route")
 })
+
 adminRouter.get("/AllAdmin",AllAdmins)
 adminRouter.get('/getAdmin/:id', getAdminbyID)
 adminRouter.post("/addAdmin", addAdmin)
