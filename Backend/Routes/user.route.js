@@ -93,8 +93,8 @@ userRoute.post("/forgot-password",async(req,res)=>{
     if(user.length===0){
         res.status(200).send({msg:"user not exist !"})
     }else{
-        let token=jwt.sign({'userID':user[0]._id},'masai',{ expiresIn:'15m' });
-       let link=`https://127.0.0.1:8080/user/${user[0]._id}/${token}`
+        let token=jwt.sign({'userID':user[0]._id},'masai',{ expiresIn:'1h' });
+       let link=`http://127.0.0.1:8080/user/reset/${user[0]._id}/${token}`
        sendemailrestlink(email,link);
        res.status(200).send({msg:"link to reset password has been sent to your registered email !"})
     }
