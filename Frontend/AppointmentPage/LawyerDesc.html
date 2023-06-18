@@ -997,7 +997,7 @@ crossorigin="anonymous"
 <script>
 const PORT = "http://localhost:8080"
 const socket = io("http://localhost:8080", { transports: ["websocket"] });
-const userChatEmail = "pawan@gmail.com";
+const userChatEmail = JSON.parse(localStorage.getItem("userData")).email || false
 let myLawyerId = "";
 const display_box = document.getElementById("chat_box");
 const myLawyers = document.querySelectorAll(".myLawyers");
