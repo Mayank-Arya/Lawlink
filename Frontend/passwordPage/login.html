@@ -54,7 +54,7 @@
         .then((res)=>{
             localStorage.setItem('key',res.token);
             localStorage.setItem('key1',res.Name);
-            localStorage.setItem('userData',JSON.parse(res.userData));
+            localStorage.setItem('userData',JSON.stringify(res.userData));
             alert(res.msg);
             location.href='../index.html'
         })
