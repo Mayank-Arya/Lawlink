@@ -117,9 +117,9 @@ userRoute.get("/reset/:userid/:token",async(req,res)=>{
 userRoute.patch("/reset/:userid/:token",async(req,res)=>{
     const {userid,token}=req.params;
     const {confirmpassword,password}=req.body
-    console.log(req)
+    //console.log(jwt.verify(token,'masai'))
     try {
-        if(token){
+        if(jwt.verify(token,'masai')){
             if(password===confirmpassword){
                 const salt = bcrypt.genSaltSync(5);
             const hash = bcrypt.hashSync(confirmpassword, salt);
