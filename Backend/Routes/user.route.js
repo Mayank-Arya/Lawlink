@@ -57,7 +57,7 @@ userRoute.post("/login",async(req,res)=>{
                     if(err)
                     throw err;
                     if(result){
-                        res.status(200).send({msg:"sucessfully Login!","token":jwt.sign({'userID':user[0]._id},'masai'),"Name":user[0].Name,userData:localStorage.setItem("Data",JSON.stringify(user[0]))})
+                        res.status(200).send({msg:"sucessfully Login!","token":jwt.sign({'userID':user[0]._id},'masai'),"Name":user[0].Name,"userData":user[0]})
                     }else{
                         res.status(400).send({msg:"Wrong credentials"})
                     }
