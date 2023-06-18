@@ -52,6 +52,9 @@
         }).then((res)=>res.json())
         .then((res)=>{
             alert(res.msg);
+            if(res.msg==="new password updated !"){
+                window.location.href="./login.html"
+            }
         })
     })
 </script>

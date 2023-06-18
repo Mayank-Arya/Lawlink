@@ -8,6 +8,7 @@ const userRoute=express.Router();
 const path=require('path')
 const otpverify=require("../Middleware/otp.middleware");
 const { UserOTP } = require('../Models/otp.model');
+const {LawyerModel}=require('../Models/lawyer.model')
 
 
 userRoute.post("/register",async(req,res)=>{
@@ -149,7 +150,23 @@ userRoute.post("/logout",async (req,res)=>{
      res.status(200).send({msg:"you are logedout!"})
 });
 
-
+userRoute.post("/lawyer-login",async(req,res)=>{
+    const {email,password}=req.body;
+    let user=await LawyerModel.find({email:email})  ;
+    try {
+        if(user.length>0){
+            if(password===user[0].password){
+                res.status(200).send({msg:"Login sucessfull !",Name:user[0].name,userData:user[0]});
+            }else{
+                res.status(200).send({msg:"wrong credentials !"});
+            }
+        }else{
+            res.status(404).send({msg:"user doesn't exist !"})
+        }
+    } catch (error) {
+        res.status(404).send({msg:"Network Error !"});
+    }
+})
 
 
 
