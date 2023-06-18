@@ -8,6 +8,7 @@ const userRoute=express.Router();
 const path=require('path')
 const otpverify=require("../Middleware/otp.middleware");
 const { UserOTP } = require('../Models/otp.model');
+const {LawyerModel}=require('../Models/lawyer.model')
 
 
 userRoute.post("/register",async(req,res)=>{
@@ -57,7 +58,7 @@ userRoute.post("/login",async(req,res)=>{
                     if(err)
                     throw err;
                     if(result){
-                        res.status(200).send({msg:"sucessfully Login!","token":jwt.sign({'userID':user[0]._id},'masai'),"Name":user[0].Name})
+                        res.status(200).send({msg:"sucessfully Login!","token":jwt.sign({'userID':user[0]._id},'masai'),"Name":user[0].Name,"userData":user[0]})
                     }else{
                         res.status(400).send({msg:"Wrong credentials"})
                     }
@@ -149,7 +150,21 @@ userRoute.post("/logout",async (req,res)=>{
      res.status(200).send({msg:"you are logedout!"})
 });
 
-
+userRoute.post("/lawyer-login",async(req,res)=>{
+    const {email,password}=req.body;
+    let user=await LawyerModel.find({email:email})  ;
+    try {
+        if(user.length>0){
+            if(password===user[0].password){
+                res.status(200).send({msg:"Login sucessfull !",Name:user[0].name,userData:user[0]});
+            }
+        }else{
+            res.status(200).send({msg:"wrong credentials !"});
+        }
+    } catch (error) {
+        res.status(404).send({msg:"Network Error !"});
+    }
+})
 
 
 

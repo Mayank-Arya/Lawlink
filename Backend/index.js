@@ -4,23 +4,30 @@ const app=express();
 app.use(express.json());
 const adminRouter = require('./Routes/admin.route')
 const lawyerRouter = require('./Routes/lawyer.route')
-<<<<<<< Updated upstream
-=======
+
 app.use(cors())
 const GoogleRouter=require('./Routes/googleAuth.router')
 
->>>>>>> Stashed changes
 const AppoinmentRoute = require("./Routes/appointment.route")
-app.use(cors())
+
+const GoogleRouter=require('./Routes/googleAuth.router')
+
 const  connection  = require('./db');
 const  {userRoute}  = require('./Routes/user.route');
 const { LawyerModel } = require('./Models/lawyer.model');
 const { myChat } = require('./Controllers/myChat');
 
+
 require("dotenv").config();
+
+
+
+
+
 
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
+
 // ========================================Routes
 
 app.get('/',(req,res) => {
@@ -31,6 +38,7 @@ app.get("/myChat", myChat)
 app.use('/admin',adminRouter);
 app.use("/user",userRoute)
 app.use("/lawyer",lawyerRouter)
+app.use("/", GoogleRouter)
 app.use("/appointment",AppoinmentRoute)
 
 
