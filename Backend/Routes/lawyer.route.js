@@ -4,6 +4,7 @@ const {addLawyer, getLawyerById, getLawyer} = require('../Controllers/lawyer.con
 
 
 lawyerRouter.post("/addLawyer", addLawyer)
+// lawyerRouter.post('/login',LoginRoute)
 lawyerRouter.get("/getLawyer", getLawyer)
 lawyerRouter.get("/getLawyerById/:id", getLawyerById)
 
