@@ -10,9 +10,18 @@ passport.use(new GoogleStrategy({
     // User.findOrCreate({ googleId: profile.id }, function (err, user) {
     //   return cb(err, user);
    // });
-   console.log(profile)
+  // console.log(profile)
+  done(null,profile)
   }
 ));
+
+passport.serializeUser((user,done)=>{
+  done(null,user)
+});
+
+passport.deserializeUser((user,done)=>{
+  done(null,user)
+});
 
 
 module.exports=passport
