@@ -4,6 +4,7 @@ const app=express();
 app.use(express.json());
 const adminRouter = require('./Routes/admin.route')
 const lawyerRouter = require('./Routes/lawyer.route')
+const AppoinmentRoute = require("./Routes/appointment.route")
 app.use(cors())
 const http=require('http');
 const  connection  = require('./db');
@@ -22,6 +23,7 @@ app.get('/',(req,res) => {
 app.use('/admin',adminRouter);
 app.use("/user",userRoute)
 app.use("/lawyer",lawyerRouter)
+app.use("/appointment",AppoinmentRoute)
 
 
 // ==========================listening the server
