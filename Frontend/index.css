@@ -1,12 +1,149 @@
-#nav{
-    width: 80%;
+#navbar{
+  /* border: solid red; */
   display: flex;
-  margin: auto;
+ 
+  color: white;
   justify-content: space-between;
-
-  text-align: center;
-  background-color: rgb(53, 240, 243);
+ 
 }
+#logo{
+  height: 80px;
+  padding: 10px;
+}
+#home{
+  display: flex;
+  /* border: solid rgb(20, 28, 4); */
+}
+ p:hover{
+  color: #42d0f4;
+}
+a{
+  color: #f5f3f3;
+}
+#login{
+  display: flex;
+
+  /* border: solid rgb(0, 255, 38); */
+}
+#navbar p{
+  font-size: 20px;
+  padding: 15px;
+
+}
+.bg{
+background-image: url(./AdminPage/image/court.jpg);
+background-size: cover;
+
+background-color: #42d0f4;
+height: 800px;
+/* border: solid red; */
+}
+p a{
+  /* border: solid red; */
+  font-size: 20px;
+}
+#ptag{
+  
+  font-size: 80px;
+  color: #3b3836;
+  width: 40%;
+  background-color: #4ec9fa;
+  margin: auto;
+  text-align: center;
+  margin-top: 100px;
+}
+
+
+*{
+  padding: 0;
+  margin: 0;
+}
+
+.menu-bar{
+  background-color: rgb(146, 144, 246);
+  text-align: center;
+  
+  border: solid red;
+}
+
+.menu-bar ul{
+ display: inline-flex;
+ list-style: none;
+ color: #fff;
+}  
+
+.menu-bar ul li{
+  width: 120px;
+  margin: 15px;
+  padding: 15px;
+ }  
+
+ .menu-bar ul li a{
+   text-decoration: none;
+   color: #fff;
+ }  
+  
+ .active, .menu-bar ul li:hover{
+  background-color: #4ec9fa;
+  border-radius: 3px;
+ }
+ .sub-menu-1{
+  display: none;
+ }
+
+ .menu-bar ul li:hover .sub-menu-1
+ {
+  display: block;
+  position: absolute;
+  background-color: #4ec9fa;
+ margin-top: 15px;
+ margin-left: -15px;
+
+  
+
+ }
+
+ .menu-bar ul li:hover .sub-menu-1 ul {
+  display: block;
+margin: 10px;
+ }
+ .menu-bar ul li:hover .sub-menu-1 li {
+ width: 150px;
+ padding: 10px;
+ border-bottom: 1px dotted #fff;
+ background: transparent;
+ border-radius: 0;
+ text-align: left;
+
+ }
+ .menu-bar ul li:hover .sub-menu-1 li :last-child{
+  border-bottom: none;
+ }
+ .menu-bar ul li:hover .sub-menu-1 li a:hover{
+color:#b2ff00;
+ }
+
+  /* sdjkhkjashakjfhkl */
+
+/* ?////////////////////////////////////////////////////////////////////////////// */
+#when{
+
+  padding: 80px;
+  text-align: center;
+  font-size: 55px;
+  color:rgb(56, 210, 237);
+}
+
+#wel{
+  width: 80%;
+margin: auto;
+font-size: 20px;
+text-align: center;
+color:rgb(56, 210, 237);
+font-weight: bold;
+  
+}
+
 #need{
     text-align: center;
     color: aliceblue;
@@ -54,6 +191,7 @@ a {
     color: rgb(1, 5, 7);
     text-align: center;
     font-size: 30px;
+    margin-top: 100px;
 }
 
 
@@ -115,7 +253,62 @@ a {
        
 }
 
+/* *****************************Repuation */
+.SecThreeParent {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px;
+}
+.SecThreeParent > div {
+  height: 629px;
+  margin: 0px;
+}
 
+.HexaGonalImage {
+  overflow: hidden;
+}
+.SecThreeLeft {
+  padding: 90px;
+  width: 30%;
+  height: 50%;
+  background-color: #fdfafa;
+}
+.SecThreeLeft > div {
+  height: 100%;
+}
+.SecThreeRight {
+  padding: 53px 110px;
+  width: 60%;
+  background-color: #3b3836;
+}
+
+.SecThreeRight > * {
+  color: white;
+}
+.SecThreeRight > div {
+  margin-top: 30px;
+}
+.SecThreeRight p {
+  font-size: 25px;
+  font-weight: 600;
+}
+.SecThreeRight span {
+  margin-left: 30px;
+}
+.RRResult {
+  font-size: 45px;
+}
+.hammersec3 {
+  width: 30px;
+  margin-right: 4px;
+}
+.sec3para {
+  color: rgb(214, 202, 202);
+  margin-left: 35px;
+}
+/* ******************************Repuation end */
 /* top rated lawer */
 #meet{
   font-size: 50px;
@@ -166,6 +359,55 @@ text-align: center;
   z-index: -1;
   background-color: #ffd41f;
 }
+
+/************************* 80years */
+/* .SectionSix {
+  min-height: 670px;
+  background-color: #3b3836;
+  padding: 20px 100px;
+  border: solid red;
+  align-items: center;
+}
+.AboutHead {
+  text-align: center;
+  color: #ffd41f;
+  margin: 20px;
+  font-size: 50px;
+}
+.SecSixParent {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.SecSixParent > * {
+  color: white;
+}
+.SecSixRight {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+.NumBum {
+  display: flex;
+  width: 320px;
+  margin: 10px;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 300ms ease-in-out;
+}
+.NubBumBar {
+  margin: 10px;
+  background-color: #ffd41f;
+  height: 100%;
+  width: 69px;
+}
+.numbumnumber {
+  font-size: 60px;
+}
+.NumBum:hover {
+  cursor: pointer;
+  scale: 1.05;
+} */
 
 /****************** footer */
 /* Footer styles */
@@ -229,4 +471,183 @@ footer {
     #container {
         width: 100%;
     }
+}
+
+/* ----------------------nav bar ---------------*/
+*{
+  margin: 0;
+  padding: 0;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  box-sizing: border-box;
+}
+
+
+a,button{
+  font-size: 16px;
+  font-weight: 500;
+  color:white;
+  text-decoration: none;
+  cursor:pointer;
+}
+button{
+  background: rgba(0, 0, 0, 0.2);
+  border: 2px solid#21e7f5;
+ border-radius: 50px;
+ padding: 9px 15px;
+ height: 50px;
+}
+
+ a:hover{
+  color:#2fcaf9;
+  transition: all 0.4s ease 0s;
+
+}
+button:hover{
+  background-color:#127a91;
+  transition: all 0.4s ease 0s;
+}
+
+#hh:hover{
+  background-color:#10778b;
+  transition: all 0.4s ease 0s;
+  border: solid rgb(7, 204, 239);
+}
+
+#hh{
+  background: rgba(0, 0, 0, 0.2);
+border: 2px solid#5ac7f3;
+border-radius: 50px;
+padding: 9px 15px;
+height: 60px;
+width:30%;
+text-align: center;
+margin: auto;
+margin-top: 90px;
+
+}
+#hh a{
+  font-size: 25px;
+}
+
+
+.image-container {
+  margin: auto;
+  width: 80%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+  grid-gap: 20px; /* Adjust the gap between images as needed */
+}
+
+.image {
+  text-align: center;
+}
+
+.image img {
+  width: 100%; /* Adjust the image width as needed */
+}
+
+.image h3 {
+  margin-top: 20px; /* Adjust the spacing between image and title as needed */
+}
+
+
+/* 
+/////////////////////// */
+
+
+
+.team-area{
+  display: flex;
+  width: 90%;
+  justify-content: space-around;
+padding: 50px;
+ 
+
+}
+.single-team{
+  width: 300px;
+  height: 300px;
+  padding: 24px;
+  background: #fff;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  transition: .6s ease-out;
+  box-shadow: 0 10px 10px rgba(0,0,0,0.5);
+
+}
+.single-team:hover{
+  transform: translateY(15px);
+}
+.single-team:hover:before{
+  opacity: 1;
+}
+.single-team:hover .team-text{
+  opacity: 1;
+  transform: translateY(0);
+}
+.single-team:before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background:linear-gradient(to top, #000,transparent) ;
+  z-index: 2;
+  transition: 0.5s;
+  opacity: 0;
+
+
+}
+.single-team img{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit:cover;
+}
+.single-team .team-text{
+  position: relative;
+  z-index: 3;
+  color: #fff;
+  opacity: 0;
+  transform: translateY(60px);
+  transition: 0.5s;
+}
+.team-text h2{
+  margin: 0;
+  font-family:Shrikhand;
+  letter-spacing: 3px;
+
+}
+.team-text p{
+  letter-spacing: 1px;
+  font-size: 15px;
+  margin-top: 8px;
+  font-family: Poppins;
+
+}
+.team-text a{
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  margin: 0 5px;
+  text-decoration: none;
+}
+.team-area a i{
+  color: #fff;
+  padding: 6px 8px;
+
+}
+.team-area{
+  margin: auto;
+  width: 60%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+  grid-gap: 20px; /
 }

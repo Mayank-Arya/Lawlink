@@ -40,4 +40,14 @@ const getLawyerById = async (req,res) => {
        }
 }
 
-module.exports = {addLawyer, getLawyer, getLawyerById}
+const getLawyerProfile = async (req, res) => {
+    try {
+      const { email } = req.query;
+      const data = await LawyerModel.findOne({ email });
+      res.json(data)
+    } catch (error) {
+      res.send("no data found");
+    }
+  }
+
+module.exports = {addLawyer, getLawyer, getLawyerById, getLawyerProfile}
