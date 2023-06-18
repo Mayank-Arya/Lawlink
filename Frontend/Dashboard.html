@@ -1,31 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://kit.fontawesome.com/e36d915985.js" crossorigin="anonymous"></script>
+    <!-- <script src="https://kit.fontawesome.com/e36d915985.js" crossorigin="anonymous"></script> -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointment Page</title>
     <link rel="stylesheet" href="./AppointmentPage/appointment.css">  
     <style>
         #second{
-            border: 1px solid black;
+            border: 0px solid black;
             width: 100%;
         }
         .right{
             margin: auto;
-            border: 1px solid red;
+            border: 0px solid red;
             width: 90%;
         }
+
+        #navbar #div1> a img{
+          cursor: pointer;
+    margin-top: 1%;
+    margin-left: 1%;
+    width: 320px;
+    height: auto;
+}
+/* #first_div h2 p div{
+   margin-top:20px;
+}
+#main_container{
+  display: grid;
+  grid-template-columns: repeat(1,1fr);
+  gap: 30px;
+}
+#mainDiv{
+  display: grid;
+  grid-template-columns: repeat(1,1fr);
+  gap: 30px 30px;
+  height: 200px;
+  gap: 20px 20px;
+  border: 1px solid black;
+}
+
+.msg{
+  height: 30px;
+  width: 100px;
+  border: 0px;
+  background-color: rgb(2, 255, 255);
+} */
+/* Example CSS for the generated elements */
+/* Example CSS for the generated elements */
+#mainDiv {
+  background-color: #f0f0f0;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.first_div {
+  background-color: #ffffff;
+  padding: 10px;
+}
+
+.third_div {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+#main_container{
+display: grid;
+grid-template-columns: repeat(1,1fr);
+gap: 10px ;
+}
+
+.msg {
+  background-color: #4caf50;
+  color: #ffffff;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.msg:hover {
+  background-color: #45a049;
+}
+
+#cancel {
+  background-color: #f44336;
+}
+
+#cancel:hover {
+  background-color: #d32f2f;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+p {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+
     </style>
 </head>
 <body>
    <nav id="navbar">
      <div id="div1">
-          <img src="./AdminPage/image/logo-lawlink.jpg" alt="">
+         <a href="./index.html"> <img src="./AdminPage/image/logo-lawlink.jpg" alt=""></a>
           <h2 class="Dashboard">Dashboard</h2>
           <h2 class="Dashboard">Services</h2>
           <h2 class="Dashboard">Contact Us</h2>
-          <button class="login">Login/Signup</button>
+          <a href="./passwordPage/login.html" "><button style="cursor: pointer;"" class="login">Login/Signup</button></a>
      </div>
    </nav>
    <div id="main">
@@ -41,65 +130,104 @@
 </body>
 <script>
 
-let userdata = JSON.parse(localStorage.getItem('userData'))
-let lawyerData = `http://localhost:8080/appointment/userEmail?email=${userdata.email}`
-// console.log(lawyerData)
-function FetchData() {
- fetch(`${lawyerData}`)
- .then((res) => res.json())
- .then((data) =>{
-     console.log(data)
-    //  displayData(data)
- })
- .catch(err => console.log(err))
-}
+// Parse localStorage values
+let userdata = JSON.parse(localStorage.getItem('userData'));
+let lawyer_local_data = JSON.parse(localStorage.getItem('Details'));
 
-FetchData()
+// Define API endpoint URL
+let lawyerData = 'http://localhost:8080/appointment';
 
-
-
-function displayData(data){
-data.forEach(ele=> {
- let div = document.createElement('div')
- div.setAttribute('id',"MainDiv")
- div.addEventListener("click",() => {
-   localStorage.setItem("Details",JSON.stringify(ele))
-   window.location.href = './LawyerDesc.html'
- })
- let div1 = document.createElement('div')
- div1.setAttribute('id','first_div')
- let div2 = document.createElement('div')
- div2.setAttribute('id','second_div')
- let name = document.createElement('h2')
- name.innerText = ele.name
- let rank = document.createElement('p')
- rank.innerText = `Rank: ${ele.Rank}`
- let pic = document.createElement('img')
- pic.setAttribute('src',ele.image)
- // ele.languages.forEach((el) => {
- //     var language = document.createElement('p')
- //     language.innerText = el
- // })
- let experience = document.createElement('p')
- experience.innerText = `Experience: ${ele.experience}`
-//    ele.skills.forEach((el) => {
-//     var skills = document.createElement('p')
-//     skills.innerText = el
-//    })
- let price = document.createElement('p')
- price.innerText = `Price: ${ele.price}`
- let bio = document.createElement('p')
- bio.innerText = ele.bio
- div1.append(name,rank,bio,experience,price)
- div2.append(pic)
- div.append(div1,div2)
-
- document.getElementById('main_container').append(div)
-});  
+// Function to fetch data from the API
+function fetchData() {
+  fetch(`${lawyerData}/userEmail?email=${userdata.email}`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      displayData(data);
+    })
+    .catch((err) => console.log(err));
 }
 
 
-let card = document.getElementById('MainDiv')
+function deleteById(id) {
+
+  fetch(`${lawyerData}/delete/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Error deleting resource');
+      }
+      console.log('Resource deleted successfully');
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+
+// Function to display data on the page
+function displayData(data) {
+  let mainContainer = document.getElementById('main_container');
+   mainContainer.innerHTML = ''
+  data.forEach((ele) => {
+   
+    let div = document.createElement('div');
+    div.id = ('mainDiv');
+
+    let div1 = document.createElement('div');
+    div1.id = ('first_div');
+
+    let div3 = document.createElement('div');
+    div3.id = ('third_div');
+
+    let msg = document.createElement('button');
+    msg.innerText = 'Chat';
+    msg.className = 'msg'
+    msg.id = 'msg'
+    msg.addEventListener('click', () => {
+      // Handle chat button click event
+    });
+
+    let cancel = document.createElement('button');
+    cancel.innerText = 'Cancel Appointment';
+    cancel.className = 'msg'
+    cancel.id = 'cancel'
+
+    cancel.addEventListener('click',()=>{
+     deleteById(ele._id)
+     displayData(data)
+    })
+    div3.append(msg, cancel);
+
+    let name = document.createElement('h2');
+    name.innerText = `With ${ele.lawyerName}`;
+
+    let rank = document.createElement('p');
+    rank.innerText = `Lawyer Email: ${ele.lawyerEmail}`;
+
+    let date = document.createElement('p');
+    date.innerText = `Date: ${ele.date}`;
+
+    let price = document.createElement('p');
+    price.innerText = `Meeting Type: ${ele.meeting_type}`;
+
+    let bio = document.createElement('p');
+    bio.innerText = `Slot No.: ${ele.slotNumber}`;
+
+    div1.append(name, rank, bio, date, price, div3);
+
+    div.append(div1);
+
+    mainContainer.append(div);
+  });
+}
+
+// Call the fetchData function
+fetchData();
 
 </script>
 </html>

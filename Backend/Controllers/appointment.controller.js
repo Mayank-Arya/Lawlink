@@ -15,7 +15,7 @@ const getAll = async(req,res) => {
 
 const getByUserEmail = async(req,res) => {
     try{
-    const {email} = req.query
+    const email = req.query.email
      const data = await AppointmentModel.find({userEmail:email})
      res.status(200).send(data)
     }

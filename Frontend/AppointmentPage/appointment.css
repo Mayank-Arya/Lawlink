@@ -21,7 +21,7 @@
     align-items: center;
 }
 
-#navbar #div1>img{
+#navbar #div1> a img{
     margin-top: 1%;
     margin-left: 1%;
     width: 320px;
