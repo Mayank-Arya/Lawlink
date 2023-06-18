@@ -4,15 +4,19 @@ const app=express();
 app.use(express.json());
 const adminRouter = require('./Routes/admin.route')
 const lawyerRouter = require('./Routes/lawyer.route')
-app.use(cors())
+const GoogleRouter=require('./Routes/googleAuth.router')
 const http=require('http');
 const  connection  = require('./db');
 const  {userRoute}  = require('./Routes/user.route');
 
 
+
 require("dotenv").config();
 const server=http.createServer(app);
 
+
+
+app.use(cors())
 // ========================================Routes
 
 app.get('/',(req,res) => {
@@ -22,6 +26,12 @@ app.get('/',(req,res) => {
 app.use('/admin',adminRouter);
 app.use("/user",userRoute)
 app.use("/lawyer",lawyerRouter)
+app.use("/", GoogleRouter)
+
+
+
+
+
 
 
 // ==========================listening the server
