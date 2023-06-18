@@ -592,8 +592,8 @@
       <div class="card_container confirm_bookSlot_container">
         <form id="confirm_bookSlot">
           <h1>Client Details</h1>
-          <input type="text" value="username" id="user_name" />
-          <input type="email" value="useremail@gmail.com" id="user_email" />
+          <input type="text" id="user_name" />
+          <input type="email" id="user_email" />
           <input type="number" placeholder="Phone Number" id="user_phone" />
           <textarea
             name=""
@@ -748,6 +748,7 @@
 
 <script>
     let data = JSON.parse(localStorage.getItem("Details"))
+    const loged_in_user_data = JSON.parse(localStorage.getItem("userData")) || false
     console.log(data)
     let name = document.getElementById('name')
     name.innerText = data.name
@@ -851,16 +852,18 @@
         }
 
         const post_obj = {
-          userEmail: userDetails.userEmail,
-          lawyerEmail: "johndoe@example.com",
+          userEmail: loged_in_user_data.email,
+          lawyerEmail: data.email,
           slot: currentSelectSlot.slot,
           slotNumber: currentSelectSlot.slotNumber,
           date: currentSelectSlot.date,
-          meeting_type: userDetails.appointmentType 
+          meeting_type: userDetails.appointmentType,
+          userName: loged_in_user_data.Name,
+          lawyerName: data.name
         }
 
         console.log(post_obj)
-        fetch("http://localhost:9090/appointment/", {
+        fetch("http://localhost:8080/appointment/", {
           method: "POST",
           body: JSON.stringify(post_obj),
           headers: {"content-type": "application/json"}
@@ -885,7 +888,7 @@
         const slot7Time = new Date(`${year}-${month}-${date}T18:00:00`);
         const slot8Time = new Date(`${year}-${month}-${date}T19:00:00`);
 
-        fetch(`http://localhost:9090/appointment/lawyerEmail?email=${lawyerdata.email}`)
+        fetch(`http://localhost:8080/appointment/lawyerEmail?email=${lawyerdata.email}`)
         .then(req => req.json())
         .then(res => {
             console.log(res)
@@ -965,6 +968,8 @@
         document.getElementById("slot_popup").style.display = "none";
       }
       function openForm() {
+        document.getElementById("user_name").value = loged_in_user_data.Name
+        document.getElementById("user_email").value = loged_in_user_data.email
         document.getElementById("form_popup").style.display = "flex";
       }
       function closeForm() {
@@ -990,13 +995,14 @@ crossorigin="anonymous"
 ></script>
 
 <script>
-  const PORT = "http://localhost:9090"
+const PORT = "http://localhost:8080"
 const socket = io("http://localhost:8080", { transports: ["websocket"] });
 const userChatEmail = "pawan@gmail.com";
 let myLawyerId = "";
 const display_box = document.getElementById("chat_box");
 const myLawyers = document.querySelectorAll(".myLawyers");
 const chatSection = document.getElementById("chat_section");
+// const loged_in_user_data = JSON.parse(localStorage.getItem("userData")) || false
 myLawyers.forEach((ele) => {
   ele.addEventListener("click", () => {
     myLawyerId = ele.getAttribute("data-lawyerId");

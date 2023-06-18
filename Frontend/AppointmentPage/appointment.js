@@ -1,4 +1,4 @@
-let lawyerData = 'http://localhost:9090/lawyer'
+let lawyerData = 'http://localhost:8080/lawyer'
 
     
 function FetchData() {

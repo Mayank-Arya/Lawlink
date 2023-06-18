@@ -4,6 +4,12 @@ const app=express();
 app.use(express.json());
 const adminRouter = require('./Routes/admin.route')
 const lawyerRouter = require('./Routes/lawyer.route')
+<<<<<<< Updated upstream
+=======
+app.use(cors())
+const GoogleRouter=require('./Routes/googleAuth.router')
+
+>>>>>>> Stashed changes
 const AppoinmentRoute = require("./Routes/appointment.route")
 app.use(cors())
 const  connection  = require('./db');
