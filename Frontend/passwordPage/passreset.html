@@ -31,20 +31,21 @@
     <div id="container">
    <h1> LawLink Password Reset </h1>
    <form>
-   <input type="text" name="" id="new" placeholder="Enter new password"> 
+   <input type="password" name="" id="new" placeholder="Enter new password"> 
    <br>
-   <input type="text" name="" id="confirm" placeholder="Confirm the password"><br>
+   <input type="password" name="" id="confirm" placeholder="Confirm the password"><br>
    <input style="background-color: blue; color: white; border: none; width: 150px;" type="submit" value="Reset Password" id="sub">
    </form>
    </div>
 </body>
 <script>
     let form=document.querySelector("form")
-
+    
     form.addEventListener("submit",(e)=>{
         e.preventDefault();
-        console.log("ok")
-        fetch(`http://localhost:8080/user/reset/:userid/:token`,{
+        console.log(window.location.href);
+
+        fetch(`${window.location.href}`,{
             method:"PATCH",
             body:JSON.stringify({password:form.new.value,confirmpassword:form.confirm.value}),
             headers:{'content-type':'application/json'}
