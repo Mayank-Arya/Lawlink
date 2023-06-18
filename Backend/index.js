@@ -6,7 +6,7 @@ const adminRouter = require('./Routes/admin.route')
 const lawyerRouter = require('./Routes/lawyer.route')
 app.use(cors())
 const GoogleRouter=require('./Routes/googleAuth.router')
-const http=require('http');
+
 
 const AppoinmentRoute = require("./Routes/appointment.route")
 
