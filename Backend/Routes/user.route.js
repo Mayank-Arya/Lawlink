@@ -34,7 +34,12 @@ userRoute.post("/register",async(req,res)=>{
                 res.status(200).send({msg:"Please verify your email !","token":tokenOTP});         // response     
         }
         else{
-            res.status(400).send({msg:"user already exist please Login!"})
+            if(user[0].verify){
+                res.status(400).send({msg:"user already exist please Login!"})
+            }else{
+                res.status(400).send({msg:"user already exist please verify your email !"})
+            }
+            
         }
     } catch (error) {
         res.status(400).send({msg:"error can't register the user"})
@@ -71,10 +76,13 @@ userRoute.post("/login",async(req,res)=>{
 
 userRoute.post("/verifyotp",otpverify, async(req,res)=>{
     const {Useremail,otp}=req.body;
+    console.log(req.body);
     const user=await UserModel.find({email:Useremail});
     const databaseotp=await UserOTP.find({Useremail});
      try {
-       if(otp===databaseotp[0].otp){
+        //if(databaseotp.length>0){
+            console.log("otp",otp)
+       if(otp==databaseotp[0].otp){
         await UserModel.findByIdAndUpdate(user[0]._id, { verify: true });
         await UserOTP.deleteMany({Useremail});
         res.status(200).json({msg:"Email verified"});
@@ -93,7 +101,7 @@ userRoute.post("/forgot-password",async(req,res)=>{
     if(user.length===0){
         res.status(200).send({msg:"user not exist !"})
     }else{
-        let token=jwt.sign({'userID':user[0]._id},'masai',{ expiresIn:'1h' });
+        let token=jwt.sign({'userID':user[0]._id},'masai',{ expiresIn:15*60 });
        let link=`http://127.0.0.1:8080/user/reset/${user[0]._id}/${token}`
        sendemailrestlink(email,link);
        res.status(200).send({msg:"link to reset password has been sent to your registered email !"})
@@ -107,24 +115,47 @@ userRoute.get("/reset/:userid/:token",async(req,res)=>{
 })
 
 userRoute.patch("/reset/:userid/:token",async(req,res)=>{
-    const {userid}=req.params;
+    const {userid,token}=req.params;
     const {confirmpassword,password}=req.body
-    
+    console.log(req)
     try {
-        if(password===confirmpassword){
-            const salt = bcrypt.genSaltSync(5);
-        const hash = bcrypt.hashSync(confirmpassword, salt);
-        await UserModel.findByIdAndUpdate({_id:userid},{password:hash});
-        res.status(200).send({msg:"new password updated !"})
-        }else{
-            res.status(200).send({msg:"confirm password should match new password !" })
+        if(token){
+            if(password===confirmpassword){
+                const salt = bcrypt.genSaltSync(5);
+            const hash = bcrypt.hashSync(confirmpassword, salt);
+            await UserModel.findByIdAndUpdate({_id:userid},{password:hash});
+            res.status(200).send({msg:"new password updated !"})
+            }else{
+                res.status(200).send({msg:"confirm password should match new password !" })
+            }
+        }  else{
+            res.status(400).send({msg:"link expired request for new !" })
         }
         
+        
     } catch (error) {
-        res.status(404).send({msg:error.message});
+        res.status(404).send({msg:"link expired request for new !"});
     }
     
 })
+
+
+
+userRoute.post("/logout",async (req,res)=>{
+     let token=req.headers.authorization.split(" ")[1];
+    
+     let blacklisttoken=await new BlacklistingModel({btoken:token});
+     blacklisttoken.save();
+     res.status(200).send({msg:"you are logedout!"})
+});
+
+
+
+
+
+
+
+
 const transporter = nodemailer.createTransport({
     service:'gmail',
     host: 'smtp.gmail.email',

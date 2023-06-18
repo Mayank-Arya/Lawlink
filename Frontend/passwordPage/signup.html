@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+    <div id="container">
+        <div class="nav">
+            <!-- <a href="./myaccount.html">Signup</a> -->
+            <!-- <a href="./login.html">Login</a>
+            <a href="./index.html">Home</a> -->
+          </div>
+        <div id="signup">
+            <h1 style="text-align: center;">Register</h1>
+            <p style="text-align: center;">Signup to LawLink Legal Services
+            </p>
+            <form>
+              <input type="text" placeholder="Name" id="name">
+              <input type="email" placeholder="Enter Your Email" id="email">
+              <input type="password" placeholder="Enter Password"  id="pass">
+              <input type="number" placeholder="Enter Phone-number"  id="number">
+              <input type="text" placeholder="Enter city"  id="city">
+              <p style="text-align: center;">Already have an account ? <a href="./login.html" style="text-decoration: none;color: blue;"> Sign in</a></p>
+              <input type="submit" value="Submit" />
+            </form>
+          </div>
+        </div>
+</body>
+
+<script>
+    let BaseUrl="http://localhost:8080"
+    let form=document.querySelector('#signup form');
+    form.addEventListener('submit',(e)=>{
+      e.preventDefault();
+      let obj={
+          email:form.email.value,
+          Phone_No:form.number.value,
+          Name:form.name.value,
+          password:form.pass.value,
+          city:form.city.value
+      }
+      fetch(`${BaseUrl}/user/register`,{
+          method:"POST",
+          headers:{'content-type':'application/json'},
+          body:JSON.stringify(obj)
+      })
+      .then(res=>res.json())
+      .then((res)=>{
+        localStorage.setItem('verify',res.token); 
+          alert(res.msg);
+          window.location.href="./verifyOTP.html"
+      })
+    })
+
+</script>
+</html>

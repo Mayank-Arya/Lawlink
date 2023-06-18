@@ -4,13 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reset Password</title>
+    <style>
+       #container{
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        width:40%;
+        margin: auto;
+        padding-bottom: 15px;
+        padding-top: 15px;
+        margin-top: 300px;
+       }
+       h1{
+        text-align: center;
+       }
+       form input{
+        display: block;
+        margin: auto;
+        width: 300px;
+        height:30px
+       }
+       /* form input:nth-child(2){
+        width: 320px;
+       } */
+    </style>
 </head>
 <body>
-   <h1> enter your new password </h1>
+    <div id="container">
+   <h1> LawLink Password Reset </h1>
    <form>
    <input type="text" name="" id="new" placeholder="Enter new password"> 
-   <input type="text" name="" id="confirm" placeholder="Confirm the password">
-   <input type="submit" value="Reset Password">
+   <br>
+   <input type="text" name="" id="confirm" placeholder="Confirm the password"><br>
+   <input style="background-color: blue; color: white; border: none; width: 150px;" type="submit" value="Reset Password" id="sub">
    </form>
+   </div>
 </body>
+<script>
+    let form=document.querySelector("form")
+
+    form.addEventListener("submit",(e)=>{
+        e.preventDefault();
+        console.log("ok")
+        fetch(`http://localhost:8080/user/reset/:userid/:token`,{
+            method:"PATCH",
+            body:JSON.stringify({password:form.new.value,confirmpassword:form.confirm.value}),
+            headers:{'content-type':'application/json'}
+        }).then((res)=>res.json())
+        .then((res)=>{
+            alert(res.msg);
+        })
+    })
+</script>
 </html>
