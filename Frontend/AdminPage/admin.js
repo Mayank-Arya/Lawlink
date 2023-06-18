@@ -1,7 +1,10 @@
 
 
-let producturl = `http://localhost:9090/lawyer`
+let producturl = `http://localhost:8080/lawyer`
 let loginurl = "https://63f1ba774f17278c9a18b9b9.mockapi.io/login"
+let bookingurl = `http://localhost:8080/appointment/lawyerEmail`
+
+// let bookingData = JSON.parse(localStorage.getItem(""))
 
 let mainSection = document.getElementById("mainsection")
 let Dashboard = document.getElementById("Dashboard")
@@ -14,16 +17,16 @@ let noofstock = document.getElementById("noofstock")
 let noofproduct = document.getElementById("noofproduct")
 let localstorageurl = localStorage.getItem("location")
 
-// function fetchurl() {
-//     fetch(`${producturl}/getLawyer`).then((res) => {
-//         return res.json()
-//     })
-//         .then((data) => {
-//             console.log(data)
-//             render(data)
-//         })
-// }
-// fetchurl()
+function fetchurl() {
+    fetch(`${producturl}/getLawyer`).then((res) => {
+        return res.json()
+    })
+        .then((data) => {
+            console.log(data)
+            render(data)
+        })
+}
+fetchurl()
 
 
 
@@ -341,52 +344,52 @@ function renderproduct(data) {
 
 
     // =================================== (POST) operation ==========================
-    addingbtn.addEventListener("click", () => {
-        let flag=false;
-       if(adddiscountinput.value!="" && addcolorinput.value!="" && adddescriptioninput.value!="" && addfimageinput.value!="" && addsimageinput.value!="" && addtimageinput.value!="" && addfoimageinput.value!="" && addpriceinput.value!="" && addtitleinput.value!="" && addsize.value!="" && addproducttype.value!=""){
-        flag=true;
-        }
+    // addingbtn.addEventListener("click", () => {
+    //     let flag=false;
+    //    if(adddiscountinput.value!="" && addcolorinput.value!="" && adddescriptioninput.value!="" && addfimageinput.value!="" && addsimageinput.value!="" && addtimageinput.value!="" && addfoimageinput.value!="" && addpriceinput.value!="" && addtitleinput.value!="" && addsize.value!="" && addproducttype.value!=""){
+    //     flag=true;
+    //     }
         
-        if(flag==true){
-        let obj = {
-            "Stock": "In Stock",
-            "category": `${adddiscountinput.value}`,
-            "color": `${addcolorinput.value}`,
-            "description1": `${adddescriptioninput.value}`,
-            "image1": `${addfimageinput.value}`,
-            "image2": `${addsimageinput.value}`,
-            "image3": `${addtimageinput.value}`,
-            "image4": `${addfoimageinput.value}`,
-            "image5": `${addfivimage.value}`,
-            "price": `${addpriceinput.value}`,
-            "rating": "⭐⭐⭐⭐⭐",
-            "title": `${addtitleinput.value}`,
-            "top": "Limited Time price!",
-            "size":`${addsize.value}`,
-            "productType":`${addproducttype.value}`
-        }
+    //     if(flag==true){
+    //     let obj = {
+    //         "Stock": "In Stock",
+    //         "category": `${adddiscountinput.value}`,
+    //         "color": `${addcolorinput.value}`,
+    //         "description1": `${adddescriptioninput.value}`,
+    //         "image1": `${addfimageinput.value}`,
+    //         "image2": `${addsimageinput.value}`,
+    //         "image3": `${addtimageinput.value}`,
+    //         "image4": `${addfoimageinput.value}`,
+    //         "image5": `${addfivimage.value}`,
+    //         "price": `${addpriceinput.value}`,
+    //         "rating": "⭐⭐⭐⭐⭐",
+    //         "title": `${addtitleinput.value}`,
+    //         "top": "Limited Time price!",
+    //         "size":`${addsize.value}`,
+    //         "productType":`${addproducttype.value}`
+    //     }
 
-        fetch(`${producturl}`, {
-            method: "POST",
-            headers: {
-                "Content-type": "application/json",
-            },
-            body: JSON.stringify(obj)
-        }).then((res) => {
-            return res.json()
-        })
-            .then((data) => {
-                console.log(data)
-                fetchurlofproduct()
-            })
-        }
-        else{
-            alert("You have to fill all of the details")
-        }
+    //     fetch(`${producturl}`, {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-type": "application/json",
+    //         },
+    //         body: JSON.stringify(obj)
+    //     }).then((res) => {
+    //         return res.json()
+    //     })
+    //         .then((data) => {
+    //             console.log(data)
+    //             fetchurlofproduct()
+    //         })
+    //     }
+    //     else{
+    //         alert("You have to fill all of the details")
+    //     }
         
        
 
-    })
+    // })
 
     // =================================== (DELETE) operation ==========================
 //     removebttn.addEventListener("click", () => {
@@ -572,57 +575,58 @@ function renderproduct(data) {
 
 
 // -----------------------------------------------Order List Section--------------------------------------------
-// let formDataArr = JSON.parse(localStorage.getItem("userform")) || [];
+ let formDataArr = JSON.parse(localStorage.getItem("userform")) || [];
 
-// let orderlist = document.getElementById("order")
-// orderlist.addEventListener("click", () => {
-//     mainSection.innerHTML = "";
-//     mainSection.innerHTML = `
-    
-//     <h2 style="margin-bottom:30px; color:white">Network of System</h2>
-//     <div id="network" style="height:380px; margin-bottom: 20px;">
-//         <div style=" padding-top: 150px; display:flex; justify-content:center; align-item:center;">
-//             <div id="containClickbtn" >
-//     <h1 style= "border:2px solid white; padding: 5px 10px; color: white; "><a style="color:white; text-decoration: none;" href="network.html">Click to check the network of product<a></h1>
-//     </div>
-//     </div>
-//     </div>
-//     <h2 style="margin-bottom:30px; color:white">Order Details</h2>
-//     <div id="alltable">
-//     <table style="color: white; width: 100%; border: 2px solid white; text-align: left; padding-left: 10px;">
-//     <thead >
-//         <tr>
-//             <th>User Name</th>
-//             <th>User Email ID</th>
-//             <th>User pincode</th>
-//             <th>User Contact</th>
-//             <th>User Location</th>
-//         </tr> 
-//     </thead>
-//     <tbody >
-//         ${formDataArr.map((item) => getdatatable(item.firstName, item.lastname, item.Email, item.pincode, item.mobile, item.Address1, item.city, item.country)).join(" ")}
-//     </tbody>
-// </table>
-// <div style="height:400px;"></div>
-// </div>
-//     `
+ let orderlist = document.getElementById("order")
+     mainSection.innerHTML = "";
+ orderlist.addEventListener("click", () => {
+ mainSection.innerHTML = `
+  
+     <h2 style="margin-bottom:30px; color:white">Network of System</h2>
+     <div id="network" style="height:380px; margin-bottom: 20px;">
+        <div style=" padding-top: 150px; display:flex; justify-content:center; align-item:center;">
+           <div id="containClickbtn" >
+    <h1 style= "border:2px solid white; padding: 5px 10px; color: white; "><a style="color:white; text-decoration: none;" href="network.html">Click to check the network of product<a></h1>
+     </div>
+    </div>
+    </div>
+   <h2 style="margin-bottom:30px; color:white">Order Details</h2>
+    <div id="alltable">
+     <table style="color: white; width: 100%; border: 2px solid white; text-align: left; padding-left: 10px;">
+     <thead >
+         <tr>
+             <th>User Name</th>
+             <th>User Email ID</th>
+             <th>User pincode</th>
+             <th>User Contact</th>
+             <th>User Location</th>
+         </tr> 
+     </thead>
+     <tbody >
+         ${formDataArr.map((item) => getdatatable(item.firstName, item.lastname, item.Email, item.pincode, item.mobile, item.Address1, item.city, item.country)).join(" ")}
+     </tbody>
+ </table>
+ <div style="height:400px;"></div>
+ </div>
+     `
 
 
 
-// })
+})
 
-// function getdatatable(firstname, lastname, email, pincode, mobile, address, city, country) {
-//     let name = `${firstname} ${lastname}`;
-//     let properAddress = `${address},${city},${country}`
-//     let card = `
-//         <tr>
-//             <td>${name}</td>
-//             <td>${email}</td>
-//             <td>${pincode}</td>
-//             <td>${mobile}</td>
-//             <td>${properAddress}</td>
-//         </tr>
+function getdatatable(firstname, lastname, email, pincode, mobile, address, city, country) {
+    let name = `${firstname} ${lastname}`;
+    let properAddress = `${address},${city},${country}`
+    let card = `
+        <tr>
+            <td>${name}</td>
+            <td>${email}</td>
+            <td>${pincode}</td>
+            <td>${mobile}</td>
+            <td>${properAddress}</td>
+        </tr>
 
-//     `
-//     return card
+    `
+    return card
+}
 }

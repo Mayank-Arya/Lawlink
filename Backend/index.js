@@ -8,6 +8,10 @@ const lawyerRouter = require('./Routes/lawyer.route')
 app.use(cors())
 const GoogleRouter=require('./Routes/googleAuth.router')
 
+const passport = require("./config/google.auth");
+const cookieSession = require("cookie-session");
+
+
 const AppoinmentRoute = require("./Routes/appointment.route")
 
 // const GoogleRouter=require('./Routes/googleAuth.router')
@@ -21,14 +25,20 @@ const { myChat } = require('./Controllers/myChat');
 require("dotenv").config();
 
 
-
-
-
-
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
 
 // ========================================Routes
+
+app.use(cookieSession({
+    name: 'google-auth-session',
+    keys: ["key1", "key2"],
+  }))
+  
+  app.use(passport.initialize());
+  app.use(passport.session());
+  
+
 
 app.get('/',(req,res) => {
     res.send("Welcome to the home route")
@@ -38,7 +48,7 @@ app.get("/myChat", myChat)
 app.use('/admin',adminRouter);
 app.use("/user",userRoute)
 app.use("/lawyer",lawyerRouter)
-app.use("/", GoogleRouter)
+app.use("/auth", GoogleRouter);
 app.use("/appointment",AppoinmentRoute)
 
 
