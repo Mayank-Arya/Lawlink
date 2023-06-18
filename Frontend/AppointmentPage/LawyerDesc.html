@@ -162,7 +162,7 @@
     align-items: center;
 }
 
-#navbar #div1>img{
+#navbar #div1>a img{
     margin-top: 1%;
     margin-left: 1%;
     width: 320px;
@@ -351,11 +351,14 @@
  
     <nav id="navbar">
         <div id="div1">
-             <img src="../AdminPage/image/logo-lawlink.jpg" alt="">
-             <h2 class="Dashboard">Dashboard</h2>
+            <a href="../index.html"> <img src="../AdminPage/image/logo-lawlink.jpg" alt=""></a>
+             <a href="../Dashboard.html" style="text-decoration: none; color: black;">
+              <h2 class="Dashboard">Dashboard</h2>
+            </a>
+            
              <h2 class="Dashboard">Services</h2>
              <h2 class="Dashboard">Contact Us</h2>
-             <button class="login">Login/Signup</button>
+             <a href="../passwordPage/login.html"><button style="cursor: pointer;" class="login">Login/Signup</button></a>
         </div>
       </nav>
 
