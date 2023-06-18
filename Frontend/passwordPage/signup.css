@@ -1,0 +1,41 @@
+body{
+    margin: 0px;
+ }
+*{
+  box-sizing: border-box;
+}
+#container{
+  /* border: 1px solid red; */
+  padding-top: 30px;
+  padding-bottom: 30px;
+  width:20%;
+  margin: auto;
+  padding:20px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin-top: 30px;
+
+}
+.nav{
+  /* border:1px solid blue; */
+  display: flex;
+  justify-content: space-between;
+}
+.nav a{
+  text-decoration: none;
+  color:black
+}
+#signup form{
+  display: flex;
+  flex-direction: column;
+  
+}
+#signup input{
+  padding:15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+#signup input:nth-child(7){
+    background-color:blue;
+    color:white;
+    
+}
