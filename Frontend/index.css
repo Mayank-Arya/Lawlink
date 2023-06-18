@@ -537,14 +537,14 @@ margin-top: 90px;
 
 
 
-.team-area{
+/* .team-area{
   display: flex;
   width: 90%;
   justify-content: space-around;
 padding: 50px;
  
 
-}
+} */
 .single-team{
   width: 300px;
   height: 300px;
@@ -598,6 +598,7 @@ padding: 50px;
   transform: translateY(60px);
   transition: 0.5s;
 }
+
 .team-text h2{
   margin: 0;
   font-family:Shrikhand;
@@ -626,6 +627,7 @@ padding: 50px;
 
 }
 .team-area{
+
   margin: auto;
   width: 60%;
   display: grid;
@@ -685,7 +687,7 @@ padding: 50px;
 }
  */
 
- @media only screen and (max-width: 767px) {
+ @media (min-width: 481px) and (max-width: 1024px) {
   /* Navbar */
   #navbar {
     flex-direction: column;
@@ -694,18 +696,35 @@ padding: 50px;
   #logo {
     margin-bottom: 10px;
   }
-  #home {
+  #home p{
+    border: solid red;
+    display: none;   
+
     flex-direction: column;
     align-items: center;
+  
   }
   #login {
     margin-top: 10px;
   }
 
   /* Main Content */
+  .team-area{
+  
+    /* display: none; */
+    /* display: flex;
+    flex-direction: column; */
+   
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    
+    align-items: center; 
+  }
   .bg {
     height: auto;
+    
   }
+ 
   #ptag {
     font-size: 40px;
     width: 80%;
@@ -736,12 +755,15 @@ padding: 50px;
     border-bottom: none;
     text-align: center;
   }
-  #when {
+
+  #when  {
+   
     padding: 40px;
     font-size: 40px;
   }
-  #wel {
-    font-size: 16px;
+  #wel p {
+    font-size: 15px;
+
   }
   #need {
     font-size: 24px;
@@ -753,10 +775,12 @@ padding: 50px;
     margin: 50px;
     width: 70%;
   }
-  #pactice-area {
-    font-size: 24px;
+  #pactice-area h1{
+    font-size: 35px;
     margin-top: 50px;
   }
+
+
   .container {
     width: 90%;
   }
@@ -809,9 +833,15 @@ padding: 50px;
     align-items: center;
   }
   .SecFiveLawyerCard {
-    flex-direction: column;
+
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+ 
+    /* flex-direction: column; */
     align-items: center;
   }
+
+ 
   .YellowBorderImgs {
     border: none;
     margin-bottom: 20px;
@@ -820,8 +850,19 @@ padding: 50px;
     display: none;
   }
   #hh {
-    font-size: 20px;
+    font-size: 1px;
+    width: 50%;
+    height: 10%;
     margin-top: 50px;
+  }
+  .more p{
+    font-size: 30px;
+   padding: 0px;
+  }
+
+  #hh a{
+    font-size: 25px;
+    
   }
   .image-container {
     width: 100%;
@@ -865,6 +906,241 @@ padding: 50px;
   }
   .footer-area .footer-nav ul li a {
     font-size: 14px;
+  }
+  .footer-div{
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* for mobile device */
+@media (max-width: 481px) {
+  #navbar {
+    flex-direction: column;
+    align-items: center;
+  }
+  #logo {
+    margin-bottom: 10px;
+  }
+  #home p{
+    border: solid red;
+    display: none;   
+
+    flex-direction: column;
+    align-items: center;
+  
+  }
+  #login {
+    margin-top: 10px;
+  }
+  /* #hh a{
+    font-size: 5px;
+    
+  } */
+
+ 
+  /* Main Content */
+  .team-area{
+  
+    /* display: none; */
+    /* display: flex;
+    flex-direction: column; */
+   
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+    
+    align-items: center; 
+  }
+  .bg {
+    height: auto;
+    
+  }
+ 
+  #ptag {
+    font-size: 40px;
+    width: 80%;
+    margin-top: 50px;
+  }
+  .menu-bar ul {
+    flex-direction: column;
+    align-items: center;
+  }
+  .menu-bar ul li {
+    width: 100%;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+  }
+  .sub-menu-1 {
+    display: none;
+  }
+  .menu-bar ul li:hover .sub-menu-1 {
+    position: relative;
+  }
+  .menu-bar ul li:hover .sub-menu-1 ul {
+    display: none;
+  }
+  .menu-bar ul li:hover .sub-menu-1 li {
+    width: 100%;
+    padding: 5px;
+    border-bottom: none;
+    text-align: center;
+  }
+
+  #when  {
+   
+    padding: 40px;
+    font-size: 40px;
+  }
+  #wel p {
+    font-size: 15px;
+
+  }
+  #need {
+    font-size: 24px;
+  }
+  #welcome {
+    font-size: 16px;
+  }
+  #schedule {
+    margin: 50px;
+    width: 70%;
+  }
+  #pactice-area h1{
+    font-size: 35px;
+    margin-top: 50px;
+  }
+
+
+  .container {
+    width: 90%;
+  }
+  .centered {
+    top: 50%;
+  }
+  #head-container {
+    width: 100%;
+    margin: auto;
+    flex-direction: column;
+    align-items: center;
+  }
+  .container {
+    width: 90%;
+    margin-bottom: 20px;
+  }
+  .image-overlay {
+    display: none;
+  }
+  .container img {
+    filter: blur(0);
+  }
+  .SecThreeParent {
+    flex-direction: column;
+    align-items: center;
+  }
+  .SecThreeLeft {
+    width: 100%;
+    padding: 30px;
+    text-align: center;
+  }
+  /* .SecThreeRight {
+    width: 100%;
+    padding: 30px;
+  }
+  .SecThreeRight p {
+    font-size: 20px;
+  }
+  .RRResult {
+    font-size: 30px;
+  }
+  .sec3para {
+    margin-left: 0;
+  } */
+  /* #meet {
+    font-size: 40px;
+  }
+  .Sec5Parent {
+    flex-direction: column;
+    align-items: center;
+  } */
+  .SecFiveLawyerCard {
+
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+ 
+    /* flex-direction: column; */
+    align-items: center;
+  }
+
+ 
+  .YellowBorderImgs {
+    border: none;
+    margin-bottom: 20px;
+  }
+  .YeloBarSec5 {
+    display: none;
+  }
+  #hh {
+    font-size: 1px;
+    width: 50%;
+    height: 10%;
+    margin-top: 50px;
+  }
+  .more p{
+    font-size: 30px;
+   padding: 0px;
+  }
+
+  #hh a{
+    font-size: 25px;
+    
+  }
+  .image-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 20px;
+  }
+  .single-image {
+    width: 100%;
+    height: auto;
+    margin: auto;
+  }
+  .single-image img {
+    width: 100%;
+    height: auto;
+  }
+  .footer-area {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 30px;
+  }
+  .footer-area p {
+    margin-bottom: 10px;
+  }
+  .footer-area .social-icons {
+    justify-content: center;
+  }
+  .footer-area .social-icons a {
+    margin: 5px;
+    font-size: 24px;
+  }
+  .footer-area .footer-nav {
+    flex-direction: column;
+    align-items: center;
+  }
+  .footer-area .footer-nav ul li {
+    padding: 5px;
+  }
+  .footer-area .footer-nav ul li a {
+    font-size: 14px;
+  }
+  .footer-div{
+    display: flex;
+    flex-direction: column;
   }
 }
 /* 
@@ -1041,3 +1317,6 @@ body {
   color: white;
   font-size: 18px;
 }
+
+
+
