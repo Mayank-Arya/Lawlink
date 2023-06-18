@@ -14,7 +14,7 @@ const cookieSession = require("cookie-session");
 
 const AppoinmentRoute = require("./Routes/appointment.route")
 
-const GoogleRouter=require('./Routes/googleAuth.router')
+// const GoogleRouter=require('./Routes/googleAuth.router')
 
 const  connection  = require('./db');
 const  {userRoute}  = require('./Routes/user.route');

@@ -3,6 +3,16 @@ const AppointmentModel = require('../Models/appointment.model')
 
 
 
+const getAll = async(req,res) => {
+  try{
+    const data = await AppointmentModel.find()
+    res.status(200).send(data)
+  }
+  catch(err){
+    res.status(400).send({msg:err.message})
+  }
+}
+
 const getByUserEmail = async(req,res) => {
     try{
     const {email} = req.query
@@ -14,6 +24,7 @@ const getByUserEmail = async(req,res) => {
         console.log(err)
     }
 }
+
 
 const getByLawyerEmail = async (req, res) => {
     try {
@@ -55,4 +66,4 @@ const DeleteAppointment = async(req,res) => {
 
 
 
-module.exports = {getByUserEmail,getByLawyerEmail,ConfirmAppointment,DeleteAppointment}
+module.exports = {getAll,getByUserEmail,getByLawyerEmail,ConfirmAppointment,DeleteAppointment}
