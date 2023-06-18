@@ -629,8 +629,8 @@
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-            <button id="booking">Book An Appointment</button>
-            <button onclick="openForm()">Open</button>
+            <button id="booking" onclick="openForm()">Book An Appointment</button>
+            <!-- <button >Open</button> -->
         </div>
       </div>
       <div>
@@ -747,23 +747,23 @@
 </body>
 
 <script>
-    let data = JSON.parse(localStorage.getItem("Details"))
-    const loged_in_user_data = JSON.parse(localStorage.getItem("userData")) || false
-    console.log(data)
+    let lawyerdata = JSON.parse(localStorage.getItem('Details'))
+     console.log(lawyerdata)
+
     let name = document.getElementById('name')
-    name.innerText = data.name
+    name.innerText = lawyerdata.name
     let img = document.getElementById('img')
-    img.setAttribute('src',data.image)
+    img.setAttribute('src',lawyerdata.image)
     let bio = document.getElementById('bio')
-    bio.innerText = data.bio
+    bio.innerText = lawyerdata.bio
     let experience = document.getElementById('experience')
-    experience.innerText = `Experience: ${data.experience}`
+    experience.innerText = `Experience: ${lawyerdata.experience}`
     let price = document.getElementById('price')
-    price.innerText = `Fees: ${data.price}`
+    price.innerText = `Fees: ${lawyerdata.price}`
     let address = document.getElementById('address')
-    address.innerText = `Address: ${data.address}`
+    address.innerText = `Address: ${lawyerdata.address}`
     let email = document.getElementById('email')
-    email.innerText = `Email: ${data.email} `
+    email.innerText = `Email: ${lawyerdata.email} `
 
     const confirm_bookSlot = document.getElementById("confirm_bookSlot");
       const day_1 = document.getElementById("day-1");
@@ -810,8 +810,8 @@
       document.getElementById("current_slot2").textContent = date_2;
       document.getElementById("current_slot3").textContent = date_3;
       let currentSelectSlot = false;
-
-      let lawyerdata = JSON.parse(localStorage.getItem('Details'))
+      let loged_in_user_data = JSON.parse(localStorage.getItem('userData')) || false
+     
       const dummySlots = [
         {
           slot: "slot12",

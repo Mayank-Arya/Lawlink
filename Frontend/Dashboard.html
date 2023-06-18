@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://kit.fontawesome.com/e36d915985.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Page</title>
+    <link rel="stylesheet" href="./AppointmentPage/appointment.css">  
+    <style>
+        #second{
+            border: 1px solid black;
+            width: 100%;
+        }
+        .right{
+            margin: auto;
+            border: 1px solid red;
+            width: 90%;
+        }
+    </style>
+</head>
+<body>
+   <nav id="navbar">
+     <div id="div1">
+          <img src="./AdminPage/image/logo-lawlink.jpg" alt="">
+          <h2 class="Dashboard">Dashboard</h2>
+          <h2 class="Dashboard">Services</h2>
+          <h2 class="Dashboard">Contact Us</h2>
+          <button class="login">Login/Signup</button>
+     </div>
+   </nav>
+   <div id="main">
+    <div style="margin-left: 3%; margin-top: 2%; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
+        <h1>Your Appointments</h1>
+    </div>
+      <div id="second">
+          <div class="right">
+            <div id="main_container"></div>
+          </div>
+      </div>
+   </div>
+</body>
+<script>
+
+let userdata = JSON.parse(localStorage.getItem('userData'))
+let lawyerData = `http://localhost:8080/appointment/userEmail?email=${userdata.email}`
+// console.log(lawyerData)
+function FetchData() {
+ fetch(`${lawyerData}`)
+ .then((res) => res.json())
+ .then((data) =>{
+     console.log(data)
+    //  displayData(data)
+ })
+ .catch(err => console.log(err))
+}
+
+FetchData()
+
+
+
+function displayData(data){
+data.forEach(ele=> {
+ let div = document.createElement('div')
+ div.setAttribute('id',"MainDiv")
+ div.addEventListener("click",() => {
+   localStorage.setItem("Details",JSON.stringify(ele))
+   window.location.href = './LawyerDesc.html'
+ })
+ let div1 = document.createElement('div')
+ div1.setAttribute('id','first_div')
+ let div2 = document.createElement('div')
+ div2.setAttribute('id','second_div')
+ let name = document.createElement('h2')
+ name.innerText = ele.name
+ let rank = document.createElement('p')
+ rank.innerText = `Rank: ${ele.Rank}`
+ let pic = document.createElement('img')
+ pic.setAttribute('src',ele.image)
+ // ele.languages.forEach((el) => {
+ //     var language = document.createElement('p')
+ //     language.innerText = el
+ // })
+ let experience = document.createElement('p')
+ experience.innerText = `Experience: ${ele.experience}`
+//    ele.skills.forEach((el) => {
+//     var skills = document.createElement('p')
+//     skills.innerText = el
+//    })
+ let price = document.createElement('p')
+ price.innerText = `Price: ${ele.price}`
+ let bio = document.createElement('p')
+ bio.innerText = ele.bio
+ div1.append(name,rank,bio,experience,price)
+ div2.append(pic)
+ div.append(div1,div2)
+
+ document.getElementById('main_container').append(div)
+});  
+}
+
+
+let card = document.getElementById('MainDiv')
+
+</script>
+</html>
