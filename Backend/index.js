@@ -4,11 +4,13 @@ const app=express();
 app.use(express.json());
 const adminRouter = require('./Routes/admin.route')
 const lawyerRouter = require('./Routes/lawyer.route')
+
 app.use(cors())
 const GoogleRouter=require('./Routes/googleAuth.router')
 
-
 const AppoinmentRoute = require("./Routes/appointment.route")
+
+const GoogleRouter=require('./Routes/googleAuth.router')
 
 const  connection  = require('./db');
 const  {userRoute}  = require('./Routes/user.route');

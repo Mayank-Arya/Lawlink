@@ -1,5 +1,11 @@
 const mongoose = require('mongoose');
 const appointmentSchema = mongoose.Schema({
+    userName: {
+        type: String,
+    },
+    lawyerName: {
+        type: String,
+    },
     lawyerEmail: {
         type: String,
         require: true

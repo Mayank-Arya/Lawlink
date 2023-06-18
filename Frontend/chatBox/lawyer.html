@@ -488,8 +488,8 @@
 <!-- appointments -->
     <section class="appointments">
       <h1>My Appointments</h1>
-      <div class="container">
-        <div class="appointments_card">
+      <div class="container" id="render_cards">
+        <!-- <div class="appointments_card">
           <div class="left_plate">jkjkjk</div>
           <div class="details">
             <h1>Alina</h1>
@@ -511,7 +511,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </section>
 
@@ -690,13 +690,14 @@
     ></script>
 
     <script>
-      const PORT = "http://localhost:9090"
+      const PORT = "http://localhost:8080"
       const socket = io("http://localhost:8080", { transports: ["websocket"] });
       const lawyerChatEmail = "johndoe@example.com";
       let myUserEmail = "";
       const display_box = document.getElementById("chat_box");
       const myLawyers = document.querySelectorAll(".myLawyers");
       const chatSection = document.getElementById("chat_section");
+      const render_cards = document.getElementById("render_cards")
       myLawyers.forEach((ele) => {
         ele.addEventListener("click", () => {
           myUserEmail = ele.getAttribute("data-lawyerId");
@@ -882,8 +883,46 @@
   }, 0)
 }
 
+// main();
 
-main();
+
+function fetchAppointments(){
+  fetch(`${PORT}/appointment/lawyerEmail?email=${lawyerChatEmail}`)
+  .then(req => req.json())
+  .then(res => renderAppointments(res))
+  .then(res => console.log(res))
+}
+fetchAppointments()
+const renderAppointments = (data) => {
+    render_cards.innerHTML = data.map(ele => {
+      return `
+      <div class="appointments_card">
+          <div class="left_plate">jkjkjk</div>
+          <div class="details">
+            <h1>Alina</h1>
+            <p>Meeting time - 4:00 PM</p>
+            <p>Meeting Date - ${ele.date}</p>
+            <p>Appointments are efficient when they are held with proper meeting hygiene standards. Meeting hygiene consists of organization and efficiency of conversation.</p>
+            <div class="actions">
+              <div class="btns">
+                <button>Message</button>
+                <button>Cancle Appointment</button>
+              </div>
+              <div class="count_container">
+                <div id="countdown">
+                    <p><span id="days"></span>DAYS</p>
+                    <p><span id="hours"></span>HOURS</p>
+                    <p><span id="minutes"></span>MINUTES</p>
+                    <p><span id="seconds"></span>SECONDS</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `
+    })
+}
+
 
     // Function to show the popup after 3 seconds
     function showPopup() {
@@ -899,11 +938,6 @@ main();
       popupContainer.style.opacity = 0;
     }
 
-    // Wait for 3 seconds before showing the popup
-    // setTimeout(showPopup, 3000);
-
-    // Wait for 4 seconds (3 seconds + 1 second) before hiding the popup
-    // setTimeout(hidePopup, 4000);
     </script>
   </body>
 </html>
