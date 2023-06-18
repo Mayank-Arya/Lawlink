@@ -157,9 +157,11 @@ userRoute.post("/lawyer-login",async(req,res)=>{
         if(user.length>0){
             if(password===user[0].password){
                 res.status(200).send({msg:"Login sucessfull !",Name:user[0].name,userData:user[0]});
+            }else{
+                res.status(200).send({msg:"wrong credentials !"});
             }
         }else{
-            res.status(200).send({msg:"wrong credentials !"});
+            res.status(404).send({msg:"user doesn't exist !"})
         }
     } catch (error) {
         res.status(404).send({msg:"Network Error !"});
