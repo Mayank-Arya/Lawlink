@@ -702,7 +702,7 @@
               ></i>
             </div>
             <div class="box" id="myLawyers">
-              <div
+              <!-- <div
                 class="item myLawyers"
                 id="yeah"
                 data-lawyerId="pawan@gmail.com"
@@ -727,7 +727,7 @@
                   <p class="name">Sumit</p>
                   <p class="lastMessage">Last message .....</p>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </section>
@@ -743,20 +743,15 @@
     <script>
       const PORT = "http://localhost:8080";
       const socket = io("http://localhost:8080", { transports: ["websocket"] });
-      const lawyer_loged_in_details = JSON.parse(localStorage.getItem("LawyerLogin")) || "johndoe@example.com"
+      const lawyer_loged_in_details =
+        JSON.parse(localStorage.getItem("LawyerLogin")) ||
+        "johndoe@example.com";
       const lawyerChatEmail = lawyer_loged_in_details.email;
       let myUserEmail = "";
       const display_box = document.getElementById("chat_box");
       const myLawyers = document.querySelectorAll(".myLawyers");
       const chatSection = document.getElementById("chat_section");
       const render_cards = document.getElementById("render_cards");
-      myLawyers.forEach((ele) => {
-        ele.addEventListener("click", () => {
-          myUserEmail = ele.getAttribute("data-lawyerId");
-          chatSection.style.display = "block";
-          updateChatBox(myUserEmail);
-        });
-      });
 
       // Connect to the server
       socket.on("connect", () => {
@@ -888,7 +883,6 @@
         fetch(`${PORT}/lawyer/lawyerProfile?email=${lawyerChatEmail}`)
           .then((req) => req.json())
           .then((res) => {
-            console.log(res);
             document.getElementById("profile_iamge_nav").src = res.image;
             document.getElementById("lawyerName").textContent = res.name;
             document.getElementById("lawyerEmail").textContent = res.email;
@@ -899,6 +893,8 @@
               .join("")}
           `;
             document.getElementById("lawyer_photo").src = res.image;
+            // render_chat_box(res);
+            // console.log(lawyer_chats);
           });
       }
 
@@ -950,51 +946,56 @@
       }
       fetchAppointments();
       const renderAppointments = (data) => {
-        console.log(data);
+        // console.log(lawyer_chats);
+        let user_emails = new Set()
+        let chat_box_data = []
         count_down_details = [];
-        render_cards.innerHTML = data.map((ele) => {
-          let time =
-            ele.slotNumber == 1 || ele.slotNumber == 9 || ele.slotNumber == 17
-              ? "09:00 AM"
-              : ele.slotNumber == 2 ||
-                ele.slotNumber == 10 ||
-                ele.slotNumber == 18
-              ? "10:00 AM"
-              : ele.slotNumber == 3 ||
-                ele.slotNumber == 11 ||
-                ele.slotNumber == 19
-              ? "11:00 AM"
-              : ele.slotNumber == 4 ||
-                ele.slotNumber == 12 ||
-                ele.slotNumber == 20
-              ? "02:00 PM"
-              : ele.slotNumber == 5 ||
-                ele.slotNumber == 13 ||
-                ele.slotNumber == 21
-              ? "03:00 PM"
-              : ele.slotNumber == 6 ||
-                ele.slotNumber == 14 ||
-                ele.slotNumber == 22
-              ? "05:00 PM"
-              : ele.slotNumber == 7 ||
-                ele.slotNumber == 15 ||
-                ele.slotNumber == 23
-              ? "06:00 PM"
-              : "07:00 PM";
-
-          let date = ele.date;
-          let dateTimeString = date + " " + time;
-          count_down_details.push(
-            { 
-              dateTimeString, 
-              days: `days${ele._id}`, 
-              hours: `hours${ele._id}`, 
-              minutes: `minutes${ele._id}`, 
-              seconds: `seconds${ele._id}`
+        render_cards.innerHTML = data
+          .map((ele) => {
+            if(ele.userEmail && !user_emails.has(ele.userEmail)){
+              user_emails.add(ele.userEmail)
+              chat_box_data.push({email: ele.userEmail, name: ele.userName})
             }
-          );
+            let time =
+              ele.slotNumber == 1 || ele.slotNumber == 9 || ele.slotNumber == 17
+                ? "09:00 AM"
+                : ele.slotNumber == 2 ||
+                  ele.slotNumber == 10 ||
+                  ele.slotNumber == 18
+                ? "10:00 AM"
+                : ele.slotNumber == 3 ||
+                  ele.slotNumber == 11 ||
+                  ele.slotNumber == 19
+                ? "11:00 AM"
+                : ele.slotNumber == 4 ||
+                  ele.slotNumber == 12 ||
+                  ele.slotNumber == 20
+                ? "02:00 PM"
+                : ele.slotNumber == 5 ||
+                  ele.slotNumber == 13 ||
+                  ele.slotNumber == 21
+                ? "03:00 PM"
+                : ele.slotNumber == 6 ||
+                  ele.slotNumber == 14 ||
+                  ele.slotNumber == 22
+                ? "05:00 PM"
+                : ele.slotNumber == 7 ||
+                  ele.slotNumber == 15 ||
+                  ele.slotNumber == 23
+                ? "06:00 PM"
+                : "07:00 PM";
 
-          return `
+            let date = ele.date;
+            let dateTimeString = date + " " + time;
+            count_down_details.push({
+              dateTimeString,
+              days: `days${ele._id}`,
+              hours: `hours${ele._id}`,
+              minutes: `minutes${ele._id}`,
+              seconds: `seconds${ele._id}`,
+            });
+
+            return `
       <div class="appointments_card">
           <div class="left_plate">jkjkjk</div>
           <div class="details">
@@ -1019,14 +1020,55 @@
           </div>
         </div>
       `;
-        });
+          })
+          .join("");
         count_down_details.forEach((ele) => {
-          main(ele)
-          // console.log(ele.days);
-          // console.log(ele.dateTimeString);
+          main(ele);
         });
-        // console.log(count_down_details);
+        render_chat_box(chat_box_data);
       };
+
+      // render chat box
+      const render_chat_box = (data) => {
+        // console.log(data.messages);
+        // let data = res.messages;
+        console.log(data);
+        
+        data.forEach((ele) => {
+          // console.log(ele.userEmail);
+              document.getElementById("myLawyers").innerHTML += `
+            <div
+                class="item myLawyers"
+                id="yeah"
+                data-lawyerId=${ele.email}
+              >
+                <img
+                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
+                  alt=""
+                  style="width: 45px; height: 100%"
+                />
+                <div class="itemText">
+                  <p class="name">${ele.name}</p>
+                  <p class="lastMessage">Type a message..</p>
+                </div>
+              </div>
+            `;
+        });
+        openThisChat()
+      };
+
+
+
+      function openThisChat(){
+        const myChatLawyers = document.querySelectorAll(".myLawyers");
+        myChatLawyers.forEach((ele) => {
+        ele.addEventListener("click", () => {
+          myUserEmail = ele.getAttribute("data-lawyerId");
+          chatSection.style.display = "block";
+          updateChatBox(myUserEmail);
+        });
+      });
+      }
 
       // Function to show the popup after 3 seconds
       function showPopup() {
