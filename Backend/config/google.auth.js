@@ -1,5 +1,6 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 require('dotenv').config();
+const passport=require('passport')
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -14,4 +15,4 @@ passport.use(new GoogleStrategy({
 ));
 
 
-module.export=passport
+module.exports=passport
