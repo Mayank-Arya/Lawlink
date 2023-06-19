@@ -2,9 +2,6 @@
 
 let producturl = `http://localhost:8080/lawyer`
 let loginurl = "https://63f1ba774f17278c9a18b9b9.mockapi.io/login"
-let bookingurl = `http://localhost:8080/appointment/lawyerEmail`
-
-// let bookingData = JSON.parse(localStorage.getItem(""))
 
 let mainSection = document.getElementById("mainsection")
 let Dashboard = document.getElementById("Dashboard")
@@ -17,16 +14,16 @@ let noofstock = document.getElementById("noofstock")
 let noofproduct = document.getElementById("noofproduct")
 let localstorageurl = localStorage.getItem("location")
 
-function fetchurl() {
-    fetch(`${producturl}/getLawyer`).then((res) => {
-        return res.json()
-    })
-        .then((data) => {
-            console.log(data)
-            render(data)
-        })
-}
-fetchurl()
+// function fetchurl() {
+//     fetch(`${producturl}/getLawyer`).then((res) => {
+//         return res.json()
+//     })
+//         .then((data) => {
+//             console.log(data)
+//             render(data)
+//         })
+// }
+// fetchurl()
 
 
 
@@ -344,52 +341,52 @@ function renderproduct(data) {
 
 
     // =================================== (POST) operation ==========================
-    // addingbtn.addEventListener("click", () => {
-    //     let flag=false;
-    //    if(adddiscountinput.value!="" && addcolorinput.value!="" && adddescriptioninput.value!="" && addfimageinput.value!="" && addsimageinput.value!="" && addtimageinput.value!="" && addfoimageinput.value!="" && addpriceinput.value!="" && addtitleinput.value!="" && addsize.value!="" && addproducttype.value!=""){
-    //     flag=true;
-    //     }
+    addingbtn.addEventListener("click", () => {
+        let flag=false;
+       if(adddiscountinput.value!="" && addcolorinput.value!="" && adddescriptioninput.value!="" && addfimageinput.value!="" && addsimageinput.value!="" && addtimageinput.value!="" && addfoimageinput.value!="" && addpriceinput.value!="" && addtitleinput.value!="" && addsize.value!="" && addproducttype.value!=""){
+        flag=true;
+        }
         
-    //     if(flag==true){
-    //     let obj = {
-    //         "Stock": "In Stock",
-    //         "category": `${adddiscountinput.value}`,
-    //         "color": `${addcolorinput.value}`,
-    //         "description1": `${adddescriptioninput.value}`,
-    //         "image1": `${addfimageinput.value}`,
-    //         "image2": `${addsimageinput.value}`,
-    //         "image3": `${addtimageinput.value}`,
-    //         "image4": `${addfoimageinput.value}`,
-    //         "image5": `${addfivimage.value}`,
-    //         "price": `${addpriceinput.value}`,
-    //         "rating": "⭐⭐⭐⭐⭐",
-    //         "title": `${addtitleinput.value}`,
-    //         "top": "Limited Time price!",
-    //         "size":`${addsize.value}`,
-    //         "productType":`${addproducttype.value}`
-    //     }
+        if(flag==true){
+        let obj = {
+            "Stock": "In Stock",
+            "category": `${adddiscountinput.value}`,
+            "color": `${addcolorinput.value}`,
+            "description1": `${adddescriptioninput.value}`,
+            "image1": `${addfimageinput.value}`,
+            "image2": `${addsimageinput.value}`,
+            "image3": `${addtimageinput.value}`,
+            "image4": `${addfoimageinput.value}`,
+            "image5": `${addfivimage.value}`,
+            "price": `${addpriceinput.value}`,
+            "rating": "⭐⭐⭐⭐⭐",
+            "title": `${addtitleinput.value}`,
+            "top": "Limited Time price!",
+            "size":`${addsize.value}`,
+            "productType":`${addproducttype.value}`
+        }
 
-    //     fetch(`${producturl}`, {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-type": "application/json",
-    //         },
-    //         body: JSON.stringify(obj)
-    //     }).then((res) => {
-    //         return res.json()
-    //     })
-    //         .then((data) => {
-    //             console.log(data)
-    //             fetchurlofproduct()
-    //         })
-    //     }
-    //     else{
-    //         alert("You have to fill all of the details")
-    //     }
+        fetch(`${producturl}`, {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify(obj)
+        }).then((res) => {
+            return res.json()
+        })
+            .then((data) => {
+                console.log(data)
+                fetchurlofproduct()
+            })
+        }
+        else{
+            alert("You have to fill all of the details")
+        }
         
        
 
-    // })
+    })
 
     // =================================== (DELETE) operation ==========================
 //     removebttn.addEventListener("click", () => {
@@ -409,77 +406,77 @@ function renderproduct(data) {
 
 
 // ------------------------------------------profile Section-------------------------------------------------------
-// adminprofile.addEventListener("click", () => {
-//     mainSection.innerHTML = "";
+adminprofile.addEventListener("click", () => {
+    mainSection.innerHTML = "";
 
-//     fetch(`${loginurl}`).then((res) => {
-//         return res.json()
-//     })
-//         .then((data) => {
+    fetch(`${loginurl}`).then((res) => {
+        return res.json()
+    })
+        .then((data) => {
 
-//             createprofile(data)
-//         })
+            createprofile(data)
+        })
 
-//     function createprofile(data) {
-//         mainSection.innerHTML = `
-// <h1 id="profilehead">Profile details</h1>
-// <div id="mainofprofile">
-//   ${data.map((item) => getcardthree(item.id, item.image, item.firstname, item.surname, item.mobile, item.email, item.description)).join("")}  
-// </div>
-// `
+    function createprofile(data) {
+        mainSection.innerHTML = `
+<h1 id="profilehead">Profile details</h1>
+<div id="mainofprofile">
+  ${data.map((item) => getcardthree(item.id, item.image, item.firstname, item.surname, item.mobile, item.email, item.description)).join("")}  
+</div>
+`
 
-//         let locationpage = document.querySelectorAll(".location")
-//         for (let loc of locationpage) {
-//             loc.addEventListener("click", (e) => {
-//                 e.preventDefault()
-//                 console.log(e.target.dataset.id)
-//                 fetch(`${loginurl}/${e.target.dataset.id}`)
-//                     .then((res) => {
-//                         return res.json()
-//                     })
-//                     .then((data) => {
-//                         console.log(data)
-//                         localStorage.setItem("location", data.location)
-//                         window.location.href = "location.html"
-//                     })
-//             })
-//         }
-//     }
+        let locationpage = document.querySelectorAll(".location")
+        for (let loc of locationpage) {
+            loc.addEventListener("click", (e) => {
+                e.preventDefault()
+                console.log(e.target.dataset.id)
+                fetch(`${loginurl}/${e.target.dataset.id}`)
+                    .then((res) => {
+                        return res.json()
+                    })
+                    .then((data) => {
+                        console.log(data)
+                        localStorage.setItem("location", data.location)
+                        window.location.href = "location.html"
+                    })
+            })
+        }
+    }
 
-//     function getcardthree(id, image, fname, lname, mob, email, desc) {
-//         let cardthree = `
-//     <div id="carddiv">
-//             <div id="proimgdiv">
-//                 <div id="firstpro">
-//                 <img id="profileimg" src=${image} alt="">
-//                 </div>
-//                 <div id="secondpro">
-//                 <p style="padding: 5px;">"${desc}"</p>
-//                 </div>
-//             </div>
-//             <div id="detailsection">
-//                 <div id="location">
-//                     <div>
-//                        <img data-id=${id} class="location" src="./image/icons8-user-location-30.png" alt="">
-//                     </div>
-//                     <div>
-//                     <p>Location</p>
-//                     </div>
-//                 </div>
-//                 <div id="userdata">
-//                 <h3>Full Stack Web Developer</h3>
-//                 <p id="name">Name:- ${fname} ${lname}</p>
-//                 <p id="mobile">Mob:- ${mob}</p>
-//                 <p id="email">Email:- ${email}</p>
+    function getcardthree(id, image, fname, lname, mob, email, desc) {
+        let cardthree = `
+    <div id="carddiv">
+            <div id="proimgdiv">
+                <div id="firstpro">
+                <img id="profileimg" src=${image} alt="">
+                </div>
+                <div id="secondpro">
+                <p style="padding: 5px;">"${desc}"</p>
+                </div>
+            </div>
+            <div id="detailsection">
+                <div id="location">
+                    <div>
+                       <img data-id=${id} class="location" src="./image/icons8-user-location-30.png" alt="">
+                    </div>
+                    <div>
+                    <p>Location</p>
+                    </div>
+                </div>
+                <div id="userdata">
+                <h3>Full Stack Web Developer</h3>
+                <p id="name">Name:- ${fname} ${lname}</p>
+                <p id="mobile">Mob:- ${mob}</p>
+                <p id="email">Email:- ${email}</p>
                     
-//                 </div>
-//             </div>
-//         </div>
-//     `
-//         return cardthree;
-//     }
+                </div>
+            </div>
+        </div>
+    `
+        return cardthree;
+    }
 
-// })
+})
 
 
 
