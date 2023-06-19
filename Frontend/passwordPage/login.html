@@ -41,7 +41,7 @@
             email:form.email.value,
             password:form.password.value
         }
-        fetch(`http://localhost:8080/user/login`,{
+        fetch(`https://lawlink.onrender.com/user/login`,{
             method:"POST",
             body:JSON.stringify(obj),
             headers:{
@@ -67,7 +67,7 @@
         })
     })
     Gbtn.addEventListener("click",()=>{
-      window.location.href="http://localhost:8080/auth/google/callback"
+      window.location.href="https://lawlink.onrender.com/auth/google/callback"
       conole.log(window.location.href)
     })
 </script>

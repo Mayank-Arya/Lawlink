@@ -277,7 +277,7 @@
     ></script>
 
     <script>
-      const socket = io("http://localhost:8080", { transports: ["websocket"] });
+      const socket = io("https://lawlink.onrender.com", { transports: ["websocket"] });
       const userChatEmail = "user@example.com";
       let myLawyerId = "";
       const display_box = document.getElementById("chat_box");
@@ -365,7 +365,7 @@
 
       function updateChatBox(myLawyerId) {
         fetch(
-          `http://localhost:8080/myChat?lawyerId=${myLawyerId}&email=${userChatEmail}`
+          `https://lawlink.onrender.com/myChat?lawyerId=${myLawyerId}&email=${userChatEmail}`
         )
           .then((req) => req.json())
           .then((res) => appendChaBox(res));
