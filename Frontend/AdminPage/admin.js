@@ -14,16 +14,16 @@ let noofstock = document.getElementById("noofstock")
 let noofproduct = document.getElementById("noofproduct")
 let localstorageurl = localStorage.getItem("location")
 
-// function fetchurl() {
-//     fetch(`${producturl}/getLawyer`).then((res) => {
-//         return res.json()
-//     })
-//         .then((data) => {
-//             console.log(data)
-//             render(data)
-//         })
-// }
-// fetchurl()
+function fetchurl() {
+    fetch(`${producturl}/getLawyer`).then((res) => {
+        return res.json()
+    })
+        .then((data) => {
+            console.log(data)
+            render(data)
+        })
+}
+fetchurl()
 
 
 
@@ -389,19 +389,19 @@ function renderproduct(data) {
     })
 
     // =================================== (DELETE) operation ==========================
-//     removebttn.addEventListener("click", () => {
-//         let deleteid = removeid.value;
-//         fetch(`${producturl}/${deleteid}`, {
-//             method: "DELETE",
+    removebttn.addEventListener("click", () => {
+        let deleteid = removeid.value;
+        fetch(`${producturl}/${deleteid}`, {
+            method: "DELETE",
 
-//         }).then((res) => {
-//             return res.json()
-//         }).then((data) => {
-//             fetchurlofproduct()
-//         })
-//     })
+        }).then((res) => {
+            return res.json()
+        }).then((data) => {
+            fetchurlofproduct()
+        })
+    })
 
-// }
+}
 
 
 
@@ -409,19 +409,73 @@ function renderproduct(data) {
 adminprofile.addEventListener("click", () => {
     mainSection.innerHTML = "";
 
-    fetch(`${loginurl}`).then((res) => {
-        return res.json()
-    })
-        .then((data) => {
+    // fetch(`${loginurl}`).then((res) => {
+    //     return res.json()
+    // })
+    //     .then((data) => {
 
-            createprofile(data)
-        })
+    //         createprofile(data)
+    //     })
+
+        const profiledata=[{
+
+            id: "1",
+            image: "https://www.pngmart.com/files/21/Admin-Profile-PNG-Isolated-Pic.png",
+            firstname: "Mayank",
+            surname: "Arya",
+            mobile: "7878454512",
+            email: "mayank@gmail.com",
+            // description: "Backend Developer"
+        },
+        {
+            
+                id: "2",
+                image: "https://www.pngmart.com/files/21/Admin-Profile-PNG-Isolated-Pic.png",
+                firstname: "Prabhat",
+                surname: "Gupta",
+                mobile: "7378454512",
+                email: "prabhat@gmail.com",
+                // description: "Backend Developer"
+            
+        },
+        {
+            id: "3",
+            image: "https://www.pngmart.com/files/21/Admin-Profile-PNG-Isolated-Pic.png",
+            firstname: "Abhishek",
+            surname: " ",
+            mobile: "9978454512",
+            email: "Abhishek@gmail.com",
+            // description: "Backend Developer"
+        },
+        {
+            id: "4",
+            image: "https://www.pngmart.com/files/21/Admin-Profile-PNG-Isolated-Pic.png",
+            firstname: "Yash",
+            surname: "Gupta",
+            mobile: "6878454512",
+            email: "yash@gmail.com",
+            // description: "Backend Developer"
+        },
+        {
+            id: "5",
+            image: "https://www.pngmart.com/files/21/Admin-Profile-PNG-Isolated-Pic.png",
+            firstname: "Afroz",
+            surname: "Khan",
+            mobile: "9878454512",
+            email: "afroz@gmail.com",
+            // description: "Backend Developer"
+        }
+
+]
+
+createprofile(profiledata)
 
     function createprofile(data) {
+        console.log(data)
         mainSection.innerHTML = `
 <h1 id="profilehead">Profile details</h1>
 <div id="mainofprofile">
-  ${data.map((item) => getcardthree(item.id, item.image, item.firstname, item.surname, item.mobile, item.email, item.description)).join("")}  
+  ${data.map((item) => getcardthree(item.id, item.image, item.firstname, item.surname, item.mobile, item.email)).join("")}  
 </div>
 `
 
@@ -443,16 +497,14 @@ adminprofile.addEventListener("click", () => {
         }
     }
 
-    function getcardthree(id, image, fname, lname, mob, email, desc) {
+    function getcardthree(id, image, fname, lname, mob, email) {
         let cardthree = `
     <div id="carddiv">
             <div id="proimgdiv">
                 <div id="firstpro">
                 <img id="profileimg" src=${image} alt="">
                 </div>
-                <div id="secondpro">
-                <p style="padding: 5px;">"${desc}"</p>
-                </div>
+
             </div>
             <div id="detailsection">
                 <div id="location">
@@ -482,91 +534,91 @@ adminprofile.addEventListener("click", () => {
 
 // ------------------------------------------Create Account Section---------------------------------------
 
-// let createaccount = document.getElementById("create")
-// createaccount.addEventListener("click", () => {
-//     mainSection.innerHTML = "";
-//     mainSection.innerHTML = `
-//                     <div id="createparentdivv">
-//                         <h2 style="margin-bottom: 30px; color:white;">Create Admin Account</h2>
-//                         <div style="width:100%;">
-//                             <form action="">
-//                                 <div id="createmain">
-//                                 <div>
-//                                 <h3>Firstname</h3>
-//                                 <input id="createfirstname" placeholder="Firstname" type="text">
-//                                 </div>
-//                                 <div>
-//                                 <h3>Lastname</h3>
-//                                 <input id="createlastname" placeholder="Lastname" type="text">
-//                                 </div>
-//                                 <div>
-//                                 <h3>Phone number</h3>
-//                                 <input id="createphonenumber" placeholder="Phone number" type="number">
-//                                 </div>
-//                                 <div>
-//                                 <h3>Description</h3>
-//                                 <input id="createdescription" placeholder="Description" type="text">
-//                                 </div>
-//                                 <div>
-//                                 <h3>Location url</h3>
-//                                 <input id="createlocationurl" placeholder="Location url" type="text">
-//                                 </div>
-//                                 <div>
-//                                 <h3>Imageurl</h3>
-//                                 <input id="createimageurl" placeholder="Image url" type="text">
-//                                 </div>
-//                                 <div>
-//                                 <h3>Email</h3>
-//                                 <input id="createemail" placeholder="Email" type="email">
-//                                 </div>
-//                                 <div>
-//                                 <h3>Password</h3>
-//                                 <input id="createpassword" placeholder="Set password" type="password">
-//                                 </div>
-//                                 </div>
-//                                 <div style="display: flex; justify-content:center;  text-align:center; padding-right:80px; margin-top: 40px; ">
-//                                 <input id="addmember"  type="submit">
-//                                 </div>
-//                                 <div style="height: 400px; ">
-//                                 </div>
-//                             </form>
-//                         </div>
-//                     </div>`
+let createaccount = document.getElementById("create")
+createaccount.addEventListener("click", () => {
+    mainSection.innerHTML = "";
+    mainSection.innerHTML = `
+                    <div id="createparentdivv">
+                        <h2 style="margin-bottom: 30px; color:white;">Create Admin Account</h2>
+                        <div style="width:100%;">
+                            <form action="">
+                                <div id="createmain">
+                                <div>
+                                <h3>Firstname</h3>
+                                <input id="createfirstname" placeholder="Firstname" type="text">
+                                </div>
+                                <div>
+                                <h3>Lastname</h3>
+                                <input id="createlastname" placeholder="Lastname" type="text">
+                                </div>
+                                <div>
+                                <h3>Phone number</h3>
+                                <input id="createphonenumber" placeholder="Phone number" type="number">
+                                </div>
+                                <div>
+                                <h3>Description</h3>
+                                <input id="createdescription" placeholder="Description" type="text">
+                                </div>
+                                <div>
+                                <h3>Location url</h3>
+                                <input id="createlocationurl" placeholder="Location url" type="text">
+                                </div>
+                                <div>
+                                <h3>Imageurl</h3>
+                                <input id="createimageurl" placeholder="Image url" type="text">
+                                </div>
+                                <div>
+                                <h3>Email</h3>
+                                <input id="createemail" placeholder="Email" type="email">
+                                </div>
+                                <div>
+                                <h3>Password</h3>
+                                <input id="createpassword" placeholder="Set password" type="password">
+                                </div>
+                                </div>
+                                <div style="display: flex; justify-content:center;  text-align:center; padding-right:80px; margin-top: 40px; ">
+                                <input id="addmember"  type="submit">
+                                </div>
+                                <div style="height: 400px; ">
+                                </div>
+                            </form>
+                        </div>
+                    </div>`
 
 
-//     let form = document.querySelector("form")
-//     form.addEventListener("submit", (e) => {
-//         e.preventDefault()
-//         let obj = {
-//             "image": form.createimageurl.value,
-//             "firstname": form.createfirstname.value,
-//             "surname": form.createlastname.value,
-//             "mobile": form.createphonenumber.value,
-//             "email": form.createemail.value,
-//             "description": form.createdescription.value,
-//             "location": form.createlocationurl.value,
-//             "password": form.createpassword.value
-//         }
+    let form = document.querySelector("form")
+    form.addEventListener("submit", (e) => {
+        e.preventDefault()
+        let obj = {
+            "image": form.createimageurl.value,
+            "firstname": form.createfirstname.value,
+            "surname": form.createlastname.value,
+            "mobile": form.createphonenumber.value,
+            "email": form.createemail.value,
+            "description": form.createdescription.value,
+            "location": form.createlocationurl.value,
+            "password": form.createpassword.value
+        }
 
-//         fetch(`${loginurl}`, {
-//             method: "POST",
-//             headers: {
-//                 "Content-type": "application/json",
-//             },
-//             body: JSON.stringify(obj)
-//         }).then((res) => {
-//             return res.json()
-//         })
-//             .then((data) => {
-//                 console.log(data)
-//                 window.location.href = "admin.html"
+        fetch(`${loginurl}`, {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify(obj)
+        }).then((res) => {
+            return res.json()
+        })
+            .then((data) => {
+                console.log(data)
+                window.location.href = "admin.html"
 
-//             })
+            })
 
-//     })
+    })
 
 
-// })
+})
 
 
 
@@ -583,7 +635,7 @@ adminprofile.addEventListener("click", () => {
      <div id="network" style="height:380px; margin-bottom: 20px;">
         <div style=" padding-top: 150px; display:flex; justify-content:center; align-item:center;">
            <div id="containClickbtn" >
-    <h1 style= "border:2px solid white; padding: 5px 10px; color: white; "><a style="color:white; text-decoration: none;" href="network.html">Click to check the network of product<a></h1>
+    <h1 style= "border:2px solid white; padding: 5px 10px; color: white; "><a style="color:white; text-decoration: none;" href="network.html">Click to check the network of our Services<a></h1>
      </div>
     </div>
     </div>
@@ -625,5 +677,4 @@ function getdatatable(firstname, lastname, email, pincode, mobile, address, city
 
     `
     return card
-}
 }
