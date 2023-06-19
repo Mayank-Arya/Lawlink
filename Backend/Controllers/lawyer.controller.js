@@ -23,8 +23,13 @@ const getLawyer = async(req,res) => {
    try{
     
     const filters = req.query.filters
+    if(!filters){
+      const allLawyer = await LawyerModel.find()
+      return res.status(200).send(allLawyer)
+    }
     let professions = []
     if(filters!=""){
+      console.log("ok")
       professions = filters.split("-")
       // console.log(professions);
       // const query = professions.length > 0 ? { profession: { $in: professions } } : {};

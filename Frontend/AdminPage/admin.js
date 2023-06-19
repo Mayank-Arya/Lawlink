@@ -14,16 +14,16 @@ let noofstock = document.getElementById("noofstock")
 let noofproduct = document.getElementById("noofproduct")
 let localstorageurl = localStorage.getItem("location")
 
-function fetchurl() {
-    fetch(`${producturl}/getLawyer`).then((res) => {
-        return res.json()
-    })
-        .then((data) => {
-            console.log(data)
-            render(data)
-        })
-}
-fetchurl()
+// function fetchurl() {
+//     fetch(`${producturl}/getLawyer`).then((res) => {
+//         return res.json()
+//     })
+//         .then((data) => {
+//             console.log(data)
+//             renderproduct(data)
+//         })
+// }
+// fetchurl()
 
 
 
@@ -93,6 +93,7 @@ function fetchurlofproduct() {
 }
 
 function renderproduct(data) {
+    console.log(data)
     mainSection.innerHTML = `<div>
         <h1 style="font-size: 25px; margin-bottom: 30px; color:white;">Lawyers</h1>
         <div id="crud" style="font-size:18px; margin-bottom: 10px;  display:flex; justify-content: space-around; background-color:white; padding: 10px;">
@@ -244,20 +245,20 @@ function renderproduct(data) {
 
 
     // ===================Update key Button======================
-    let xd = false;
-    let updatekey = document.getElementById("updatekey")
-    updatekey.addEventListener("click", () => {
-        mainsectionofcrud.style.display = "none";
-        mainsectionofremove.style.display = "none";
-        mainsectionupdateall.style.display = "none";
-        xd = !xd;
-        if (xd == true) {
-            mainsectionupdatesingle.style.display = "block";
-        }
-        else {
-            mainsectionupdatesingle.style.display = "none";
-        }
-    })
+    // let xd = false;
+    // let updatekey = document.getElementById("updatekey")
+    // updatekey.addEventListener("click", () => {
+    //     mainsectionofcrud.style.display = "none";
+    //     mainsectionofremove.style.display = "none";
+    //     mainsectionupdateall.style.display = "none";
+    //     xd = !xd;
+    //     if (xd == true) {
+    //         mainsectionupdatesingle.style.display = "block";
+    //     }
+    //     else {
+    //         mainsectionupdatesingle.style.display = "none";
+    //     }
+    // })
 
 
 
