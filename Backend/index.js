@@ -4,7 +4,7 @@ const app=express();
 app.use(express.json());
 const adminRouter = require('./Routes/admin.route')
 const lawyerRouter = require('./Routes/lawyer.route')
-
+const GoogleRouter = require('./Routes/googleAuth.router')
 app.use(cors())
 
 
