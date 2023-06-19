@@ -5,14 +5,114 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+    crossorigin="anonymous"
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="stylesheet" href="./index.css">
 </head>
 <body>
     <!---------------- Nav bar------------------ -->
    
-   
+
+
+    
 <div class="bg">
-      <div id="navbar">
+      <!-- navigation starts -->
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light">
+  <!-- Container wrapper -->
+  <div class="container-fluid">
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Navbar brand -->
+      <a class="navbar-brand mt-2 mt-lg-0" href="#">
+        <img
+          src="./AdminPage/image/logo-lawlink-removebg-preview.png"
+          height="40"
+          alt="Lwlink Logo"
+          loading="lazy"
+        />
+      </a>
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="#">HOME</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">OUR FIRM</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">PRACTICE AREAS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">PAY BILL</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">FAQ</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">LOCATIONS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">CONTACT</a>
+        </li>
+      </ul>
+      <!-- Left links -->
+    </div>
+    <!-- Collapsible wrapper -->
+ 
+    <!-- Right elements -->
+    <div class="d-flex align-items-center">
+      <!-- Icon -->
+ 
+      <!-- Notifications -->
+      <div class="dropdown" id="login_signup">
+        <a
+          href="./passwordPage/login.html"
+          id="navbarDropdownMenuLink"
+          role="button"
+          data-mdb-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Login / SignUp
+        </a>
+      </div>
+      <div id="loged_in_user" style="display: none;">
+        <a href="./Dashboard.html"><div id="loged_in_name" style="cursor: pointer;"></div></a>
+          
+            <!-- <i class="fa-solid fa-bell fa-shake fa-xl"></i> -->
+            <i class="fa-solid fa-right-from-bracket" onclick="logout()"></i>
+      </div>
+      <!-- Avatar -->
+      <div class="dropdown">
+        <a
+          class="d-flex align-items-center hidden-arrow"
+          href="#"
+          id="navbarDropdownMenuAvatar"
+          role="button"
+          data-mdb-toggle="dropdown"
+          aria-expanded="false"
+        >
+        </a>
+      </div>
+    </div>
+    <!-- Right elements -->
+  </div>
+  <!-- Container wrapper -->
+ </nav>
+ <!-- Navbar -->
+      <!-- <div id="navbar">
         
         <div id="home">
           <img id="logo"   src="./AdminPage/image/logo-lawlink-removebg-preview.png" alt="">
@@ -27,14 +127,14 @@
         <div id="login">
            <button><a href="./passwordPage/login.html">LOGIN/REGISTER</a></button>
         </div>
-  
-      </div>
+        
+      </div> -->
         <h1 class="more" id="when"><p>WHEN YOU NEED MORE</p></h1>
         <div id="wel"><p>Welcome to Lawlink, the premier platform for finding the right legal expert for your specific needs.Once you've found your ideal legal expert, 
           our intuitive appointment scheduling system allows you to book consultations directly through our platform.
         </p></div>
         
-       <h2 id="hh"><a href="#">Schedule Your Free Consultation</a></h2>
+       <h2 id="hh"><a href="./AppointmentPage/appointment.html">Schedule Your Free Consultation</a></h2>
     
     </div>
 
@@ -104,7 +204,7 @@
 
 </div>
 
-</div> -->
+
 
 
 
@@ -289,6 +389,24 @@
 </footer>
 
 
+<script>
+let loged_in_user_data = JSON.parse(localStorage.getItem('userData')).Name || false
 
+if(loged_in_user_data){
+  logedIn()
+}
+function logedIn(){
+  document.getElementById("loged_in_name").textContent = loged_in_user_data
+  document.getElementById("loged_in_user").style.display = "flex"
+  document.getElementById("login_signup").style.display = "none"
+}
+
+function logout(){
+  document.getElementById("loged_in_user").style.display = "none"
+  document.getElementById("login_signup").style.display = "flex"
+  localStorage.removeItem("userData");
+}
+
+</script>
 </body>
 </html>

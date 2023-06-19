@@ -1,6 +1,24 @@
 let lawyerData = 'http://localhost:8080/lawyer'
 
-    
+
+let loged_in_user_data = JSON.parse(localStorage.getItem('userData')) || false
+  
+if(loged_in_user_data){
+  loged_in_user_data = loged_in_user_data.Name
+  logedIn()
+}
+function logedIn(){
+  document.getElementById("loged_in_name").textContent = loged_in_user_data
+  document.getElementById("loged_in_user").style.display = "flex"
+  document.getElementById("login_signup").style.display = "none"
+}
+
+function logout(){
+  document.getElementById("loged_in_user").style.display = "none"
+  document.getElementById("login_signup").style.display = "flex"
+  localStorage.removeItem("userData");
+}
+
 function FetchData() {
  fetch(`${lawyerData}/getLawyer`)
  .then((res) => res.json())
