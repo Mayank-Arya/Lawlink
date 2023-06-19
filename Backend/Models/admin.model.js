@@ -16,7 +16,9 @@ const adminSchema = mongoose.Schema({
     phone: {
         type: Number,
         require: true
-    }
+    },
+    role:String,
+    verify:Boolean
     
 }, {
     timestamps: true

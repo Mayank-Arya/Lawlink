@@ -21,14 +21,13 @@ GoogleRouter.get("/login/success", async (req, res) => {
     return res.redirect(`${RedirectLink}/Frontend/index.html?authsuccess=false`)
   }
   let payload = req.user
-  console.log(payload)
+
   let userDetails = {
-    Name: payload.displayName,
+    Name: payload.name.givenName,
     email: payload.emails[0].value,
-    phone: 0,
     password: payload.emails[0].value,
     role:"user",
-    verified: true
+    verify: true
   }
   // console.log(userDetails)
   console.log("Google Auth Accessed by" + userDetails.email);
