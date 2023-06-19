@@ -20,7 +20,7 @@
 <h4>* Chatting</h4>
 <h4>* Upcoming Appointments</h4>
 <h4>* Cancel Appointment</h4>
-
+<h4>* Filter Lawyers</h4>
 
 
 
