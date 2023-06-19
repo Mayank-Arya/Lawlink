@@ -21,10 +21,23 @@ const addLawyer = async(req,res) => {
 
 const getLawyer = async(req,res) => {
    try{
-     const allLawyer = await LawyerModel.find()
-     res.status(200).send(allLawyer)
+    
+    const filters = req.query.filters
+    let professions = []
+    if(filters!=""){
+      professions = filters.split("-")
+      // console.log(professions);
+      // const query = professions.length > 0 ? { profession: { $in: professions } } : {};
+      const allLawyer = await LawyerModel.find({ profession: { $in: professions } })
+      // console.log(allLawyer);
+       res.status(200).send(allLawyer)
+    }else{
+       const allLawyer = await LawyerModel.find()
+       res.status(200).send(allLawyer)
+    }
    }
    catch(err){
+    console.log(err.message);
     res.send({msg:err.message})
    }
 }

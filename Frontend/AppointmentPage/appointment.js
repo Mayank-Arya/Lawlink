@@ -1,6 +1,39 @@
 let lawyerData = 'http://localhost:8080/lawyer'
 
 
+
+
+function filterBrands() {
+  // Get all checkboxes
+  const brand_checkboxes = document.querySelectorAll(".brand_filter_option");
+
+  // Get checked checkboxes
+  const brand_checkedCheckboxes = Array.from(brand_checkboxes).filter(
+    (checkbox) => checkbox.checked
+  );
+
+  // Get checked checkbox values
+  const brand_checkedValues = brand_checkedCheckboxes.map(
+    (checkbox) => checkbox.value
+  );
+
+  if (brand_checkedValues.length == 0) return "";
+  return brand_checkedValues.join("-");
+}
+
+document.querySelectorAll(".brand_filter_option").forEach(ele => {
+  ele.addEventListener("change", () => {
+    let filter_values = filterBrands()
+    FetchData(filter_values)
+    // console.log(filter_values);
+  })
+})
+
+
+
+
+
+
 let loged_in_user_data = JSON.parse(localStorage.getItem('userData')) || false
   
 if(loged_in_user_data){
@@ -19,8 +52,8 @@ function logout(){
   localStorage.removeItem("userData");
 }
 
-function FetchData() {
- fetch(`${lawyerData}/getLawyer`)
+function FetchData(filter) {
+ fetch(`${lawyerData}/getLawyer?filters=${filter}`)
  .then((res) => res.json())
  .then((data) =>{
      console.log(data)
@@ -29,11 +62,12 @@ function FetchData() {
  .catch(err => console.log(err))
 }
 
-FetchData()
+FetchData("")
 
 
 
 function displayData(data){
+  document.getElementById('main_container').innerHTML = ""
 data.forEach(ele=> {
  let div = document.createElement('div')
  div.setAttribute('id',"MainDiv")
