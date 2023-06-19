@@ -1,6 +1,6 @@
 
 
-let producturl = `http://localhost:8080/lawyer`
+let producturl = `https://lawlink.onrender.com/lawyer`
 let loginurl = "https://63f1ba774f17278c9a18b9b9.mockapi.io/login"
 
 let mainSection = document.getElementById("mainsection")
@@ -156,11 +156,6 @@ function renderproduct(data) {
 
                 </div>
 
-
-
-                
-
-        
         <div id="dashtwo">
         
         ${data.map((item) => getdata(item.id, item.image, item.name, item.price, item.bio,item.rating)).join("")}

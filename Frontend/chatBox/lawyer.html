@@ -741,8 +741,8 @@
     ></script>
 
     <script>
-      const PORT = "http://localhost:8080";
-      const socket = io("http://localhost:8080", { transports: ["websocket"] });
+      const PORT = "https://lawlink.onrender.com";
+      const socket = io("https://lawlink.onrender.com", { transports: ["websocket"] });
       const lawyer_loged_in_details =
         JSON.parse(localStorage.getItem("LawyerLogin")) ||
         "johndoe@example.com";
@@ -1061,8 +1061,6 @@
         });
         openThisChat()
       };
-
-
 
       function openThisChat(){
         const myChatLawyers = document.querySelectorAll(".myLawyers");

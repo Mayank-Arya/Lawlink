@@ -95,7 +95,7 @@
             email:form.email.value,
             password:form.password.value
         }
-        fetch(`http://localhost:8080/user/lawyer-login`,{
+        fetch(`https://lawlink.onrender.com/user/lawyer-login`,{
             method:"POST",
             body:JSON.stringify(obj),
             headers:{
