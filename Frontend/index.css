@@ -1,3 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Lato&family=Libre+Franklin&family=Montserrat&family=Noto+Sans&family=Playfair+Display&family=Roboto&family=Rubik&family=Varela+Round&family=Work+Sans&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* font-family: "Lato", sans-serif; */
+  font-family: 'Noto Sans', sans-serif;
+}
+:root {
+  --baseColor: rgb(53, 240, 243);
+}
+.nav-item a:hover {
+  color: var(--baseColor);
+}
+.nav-item a{
+  color: #fff;
+  font-size: 20px;
+}
+#login_signup{
+  /* display: none; */
+}
+#login_signup a{
+  background-color: var(--baseColor);
+  padding: 6px 10px;
+  border-radius: 4px;
+  transition: 0.3s;
+  color: #000000;
+}
+#login_signup a:hover{
+  background-color: #787878;
+  /* color: rgb(53, 240, 243); */
+  color: #fff;
+}
+#loged_in_user {
+  display: none;
+  width: 150px;
+  /* height: 0px; */
+  color: #fff;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 0px;
+}
+#loged_in_user i{
+  cursor: pointer;
+}
 #navbar{
   /* border: solid red; */
   display: flex;
@@ -51,12 +99,6 @@ p a{
   margin: auto;
   text-align: center;
   margin-top: 100px;
-}
-
-
-*{
-  padding: 0;
-  margin: 0;
 }
 
 .menu-bar{
@@ -455,14 +497,6 @@ footer {
 
 
 /* ----------------------nav bar ---------------*/
-*{
-  margin: 0;
-  padding: 0;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  box-sizing: border-box;
-}
-
-
 a,button{
   font-size: 16px;
   font-weight: 500;

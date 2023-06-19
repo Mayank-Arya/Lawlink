@@ -952,6 +952,7 @@
         count_down_details = [];
         render_cards.innerHTML = data
           .map((ele) => {
+            console.log(ele);
             if(ele.userEmail && !user_emails.has(ele.userEmail)){
               user_emails.add(ele.userEmail)
               chat_box_data.push({email: ele.userEmail, name: ele.userName})
@@ -1025,13 +1026,17 @@
         count_down_details.forEach((ele) => {
           main(ele);
         });
+        console.log(chat_box_data);
+
         render_chat_box(chat_box_data);
+        // console.log("data" + chat_box_data);
       };
 
       // render chat box
       const render_chat_box = (data) => {
         // console.log(data.messages);
         // let data = res.messages;
+        console.log("iudfsiudf");
         console.log(data);
         
         data.forEach((ele) => {
