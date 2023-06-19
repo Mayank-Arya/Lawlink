@@ -22,7 +22,7 @@
         </div>
         <div>
             <p style="text-align: center;">Login with social accounts</p>
-            <button style="margin: auto;padding: 10px; vertical-align: middle; background-color: white; border-width: thin; width: 340px;line-height:15px;border-radius: 5px;"> <img src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-webinar-optimizing-for-success-google-business-webinar-13.png" alt="" style="width: 15px;"> Continue with Google</button>
+            <button style="margin: auto;padding: 10px; vertical-align: middle; background-color: white; border-width: thin; width: 340px;line-height:15px;border-radius: 5px;" id="btn"> <img src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-webinar-optimizing-for-success-google-business-webinar-13.png" alt="" style="width: 15px; "> Continue with Google</button>
         </div>
         <div>
             <p style="text-align: center;">Don't have an account?  <a href="./signup.html" style="text-decoration: none;color: blue;">Sign up</a></p>
@@ -34,6 +34,7 @@
 
 <script>
     let form=document.querySelector('#signin>form');
+    let Gbtn=document.getElementById('btn');
     form.addEventListener('submit',(e)=>{
         e.preventDefault();
         let obj={
@@ -53,12 +54,21 @@
             localStorage.setItem('userData',JSON.stringify(res.userData));
             alert(res.msg);
             if(res.msg==="sucessfully Login!"){
-              window.location.href="../index.html"
+              if(res.role==="user"){
+                window.location.href="../index.html"
+              }else{
+                window.location.href="../AdminPage/admin.html"
+              }
+              
             }else{
               form.password.value=""
               form.email.value=""
             }
         })
+    })
+    Gbtn.addEventListener("click",()=>{
+      window.location.href="http://localhost:8080/auth/google/callback"
+      conole.log(window.location.href)
     })
 </script>
 </html>
