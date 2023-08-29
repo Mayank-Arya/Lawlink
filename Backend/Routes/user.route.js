@@ -82,7 +82,7 @@ userRoute.post("/verifyotp",otpverify, async(req,res)=>{
     const databaseotp=await UserOTP.find({Useremail});
      try {
         //if(databaseotp.length>0){
-            console.log("otp",otp)
+           // console.log("otp",otp)
        if(otp==databaseotp[0].otp){
         await UserModel.findByIdAndUpdate(user[0]._id, { verify: true });
         await UserOTP.deleteMany({Useremail});
