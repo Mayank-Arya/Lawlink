@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt')
 const adminModel = require('../Models/admin.model')
-const generatePassword = require('../utils/generatePassward')
+
 
 const AllAdmins = async (req,res) => {
     try{

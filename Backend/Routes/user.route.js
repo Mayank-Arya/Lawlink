@@ -103,7 +103,7 @@ userRoute.post("/forgot-password",async(req,res)=>{
         res.status(200).send({msg:"user not exist !"})
     }else{
         let token=jwt.sign({'userID':user[0]._id},'masai',{ expiresIn:15*60 });
-       let link=`https://lawlink.onrender.com/reset/${user[0]._id}/${token}`
+       let link=`https://lawyer-backend.onrender.com//reset/${user[0]._id}/${token}`
        sendemailrestlink(email,link);
        res.status(200).send({msg:"link to reset password has been sent to your registered email !"})
     }
