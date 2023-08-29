@@ -4,7 +4,8 @@ const app=express();
 app.use(express.json());
 const adminRouter = require('./Routes/admin.route')
 const lawyerRouter = require('./Routes/lawyer.route')
-
+// Configure Express to trust the proxy
+app.set('trust proxy', true);
 const GoogleRouter = require("./Routes/googleAuth.router");
 
 
